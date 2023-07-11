@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Calculate Take-Home Pay</title>
+<body>
+
+
+<h1>Calculate Take-Home Pay</h1>
+
+
+<form method="post" action="/tips/addIncome">
+    <label for="workDate">Date:</label><br>
+    <input type="date" id = "workDate" name="workDate"><br>
+    <label for="hoursWorked">Number of Hours Worked:</label><br>
+    <input type="number" id = "hoursWorked" name="hoursWorked"><br>
+    <label for="hourlyRate">Hourly Rate:</label><br>
+    <input type="number" id = "hourlyRate" name="hourlyRate"><br>
+    <label for="creditCardTips">Total Credit Card Tips:</label><br>
+    <input type="number" id = "creditCardTips" name="creditCardTips"><br>
+    <label for="cashTips">Total Cash Tips:</label><br>
+    <input type="number" id = "cashTips" name="cashTips"><br>
+    <label for="taxRate">Tax Rate:</label><br>
+    <input type="number" id = "taxRate" name="taxRate"><br>
+    <input type="submit" value="Calculate Take-Home Pay">
+</form>
+</body>
+</html>
