@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header"></header>
+
+<p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Recently Added Cocktails</th>
+    </tr>
+    </thead>
+
+    <tr th:each="cocktail: ${cocktails}">
+        <td><a th:href="'/cocktails/detail?cocktailId=' + ${cocktail.id}" th:text="${cocktail.name}"></a></td>
+    </tr>
+</table>
+
+</body>
+</html>
