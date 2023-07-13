@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<header th:replace="fragments :: header"></header>
+
+
+<h1>Total Take-Home Pay</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Total Pay</th>
+        </tr>
+    </thead>
+
+    <tr th:each="pay : ${payCalculations}">
+        <td th:text="${pay.id}"></td>
+        <td th:text="${pay.dateWorked}"></td>
+        <td th:text="${pay.totalPay}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Calculate Take-Home Pay</title>
-<body>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<header th:replace="fragments :: header"></header>
 
-
-<h1>Calculate Take-Home Pay</h1>
-
-
-<form method="post" action="/tips/addIncome">
-    <label for="workDate">Date:</label><br>
-    <input type="date" id = "workDate" name="workDate"><br>
+<!--TODO: Fix this!-->
+<form>
+    <label for="dateWorked">Date:</label><br>
+    <input type="date" id = "dateWorked" name="dateWorked"><br>
     <label for="hoursWorked">Number of Hours Worked:</label><br>
     <input type="number" id = "hoursWorked" name="hoursWorked"><br>
     <label for="hourlyRate">Hourly Rate:</label><br>
