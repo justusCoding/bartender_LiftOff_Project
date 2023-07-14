@@ -1,6 +1,7 @@
 package org.launchcode.bartender_LiftOff_Project.controllers.cocktails;
 
 import org.launchcode.bartender_LiftOff_Project.data.cocktails.CocktailRepository;
+import org.launchcode.bartender_LiftOff_Project.data.cocktails.RecipeRepository;
 import org.launchcode.bartender_LiftOff_Project.models.cocktails.Cocktail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ public class CocktailController {
 
     @Autowired
     private CocktailRepository cocktailRepository;
+
+    @Autowired
+    private RecipeRepository recipeRepository;
 
 
     @GetMapping
