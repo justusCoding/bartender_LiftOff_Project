@@ -1,8 +1,8 @@
-package org.launchcode.bartender_LiftOff_Project.controllers.cocktails;
+package org.launchcode.bartender_LiftOff_Project.cocktails.controllers;
 
-import org.launchcode.bartender_LiftOff_Project.data.cocktails.CocktailRepository;
-import org.launchcode.bartender_LiftOff_Project.data.cocktails.RecipeRepository;
-import org.launchcode.bartender_LiftOff_Project.models.cocktails.Cocktail;
+import org.launchcode.bartender_LiftOff_Project.cocktails.data.CocktailRepository;
+import org.launchcode.bartender_LiftOff_Project.cocktails.data.RecipeRepository;
+import org.launchcode.bartender_LiftOff_Project.cocktails.models.Cocktail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

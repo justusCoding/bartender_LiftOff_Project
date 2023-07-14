@@ -1,6 +1,6 @@
-package org.launchcode.bartender_LiftOff_Project.data.cocktails;
+package org.launchcode.bartender_LiftOff_Project.cocktails.data;
 
-import org.launchcode.bartender_LiftOff_Project.models.cocktails.Cocktail;
+import org.launchcode.bartender_LiftOff_Project.cocktails.models.Cocktail;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

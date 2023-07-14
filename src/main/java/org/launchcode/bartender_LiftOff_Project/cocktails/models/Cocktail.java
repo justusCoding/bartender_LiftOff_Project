@@ -1,17 +1,14 @@
-package org.launchcode.bartender_LiftOff_Project.models.cocktails;
+package org.launchcode.bartender_LiftOff_Project.cocktails.models;
 
 import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Cocktail extends AbstractEntity {
@@ -27,8 +24,9 @@ public class Cocktail extends AbstractEntity {
 
     // CONSTRUCTORS
 
-    public Cocktail(String name) {
+    public Cocktail(String name, Recipe recipe) {
         this.name = name;
+        this.recipe = recipe;
     }
 
     public Cocktail() {}
@@ -39,11 +37,16 @@ public class Cocktail extends AbstractEntity {
         return name;
     }
 
-
-
-    // SETTERS
+    public Recipe getRecipe() {
+        return recipe;
+    }
+// SETTERS
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }
