@@ -15,7 +15,7 @@
     </thead>
 
     <tr th:each="cocktail: ${cocktails}">
-        <td><a th:href="'/cocktails/detail?cocktailId=' + ${cocktail.id}" th:text="${cocktail.name}"></a></td>
+        <td><a th:href="'/cocktails/recipe?cocktailId=' + ${cocktail.id}" th:text="${cocktail.name}"></a></td>
     </tr>
 </table>
 
