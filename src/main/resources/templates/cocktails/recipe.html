@@ -5,7 +5,10 @@
 <body class="container">
 <header th:replace="fragments :: header"></header>
 
+    <h3>Ingredients</h3>
     <p th:each="ingredient : ${cocktail.recipe.ingredients}" th:text="${ingredient.name}"></p>
+    <br>
+    <h3>Instructions</h3>
     <p th:text="${cocktail.recipe.instructions}"></p>
 
 </body>

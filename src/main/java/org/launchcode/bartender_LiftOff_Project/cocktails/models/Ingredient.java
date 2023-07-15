@@ -1,10 +1,7 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.models;
 
-import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +9,7 @@ import java.util.List;
 @Entity
 public class Ingredient extends AbstractEntity {
 
-    @Size(min = 1, max = 32)
-    @NotBlank
+    @Size(max = 32)
     private String name;
 
     @ManyToMany(mappedBy = "ingredients")

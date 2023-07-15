@@ -2,6 +2,7 @@ package org.launchcode.bartender_LiftOff_Project.cocktails.controllers;
 
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.CocktailRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.RecipeRepository;
+import org.launchcode.bartender_LiftOff_Project.cocktails.data.IngredientRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Cocktail;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Ingredient;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Recipe;
@@ -26,7 +27,7 @@ public class CocktailController {
     private RecipeRepository recipeRepository;
 
     @Autowired
-    private RecipeRepository ingredientRepository;
+    private IngredientRepository ingredientRepository;
 
 
     @GetMapping
@@ -61,8 +62,17 @@ public class CocktailController {
             model.addAttribute("title", "Create New Cocktail Recipe");
             return "cocktails/create";
         }
-        for (Ingredient ingredient : recipeIngredients.getIngredients()) {
-            newCocktail.getRecipe().addIngredient(ingredient);
+        else {
+            Recipe recipe = newCocktail.getRecipe();
+            for (Ingredient ingredient : recipeIngredients.getIngredients()) {
+                Optional<Ingredient> existingIngredient = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
+                if (existingIngredient.isPresent()) {
+                    recipe.addIngredient((existingIngredient.get()));
+                }
+                else {
+                    recipe.addIngredient(ingredient);
+                }
+            }
         }
 
         cocktailRepository.save(newCocktail);
