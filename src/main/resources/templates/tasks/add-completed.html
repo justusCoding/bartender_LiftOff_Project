@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+    <header>Add Completed Task</header>
+    </br>
+    <form action="/tasks/add-completed" method="POST">
+        <div>
+            <label>Type:
+                <select th:field="${completedTasks.completedTaskType}">
+                    <option th:each="type : ${completedTaskTypes}"
+                            th:value="${type}"
+                            th:text="${type.displayName}"
+                    ></option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>Name:
+                <input th:field="${completedTasks.completedTaskName}" />
+            </label>
+            <p class="error" th:errors="${completedTasks.completedTaskName}"></p>
+        </div>
+        <div>
+            <label>Notes:
+                <input th:field="${completedTasks.completedTaskNotes}" />
+            </label>
+            <p class="error" th:errors="${completedTasks.completedTaskNotes}"></p>
+        </div>
+        <div>
+            <label>Date Completed:
+                <input type="date" id="dateCompleted" name="dateCompleted">
+            </label>
+        </div>
+        <div>
+            <label>Employee Completed By:
+                <select th:field="${completedTasks.employeeCompletedBy}">
+                    <option th:each="type : ${employees}"
+                            th:value="${type}"
+                            th:text="${type.displayName}"
+                    ></option>
+                </select>
+            </label>
+        </div>
+        <button type="submit">Add New Completed Task</button>
+        </form>
+        </br>
+        <p><a href="/tasks/delete-completed">Delete Completed Task</a></p>
+        <p><a href="/tasks/list-completed">Completed Task List</a></p>
+        <div th:replace="~{fragments :: home}"></div>
+</body>
+</html>
