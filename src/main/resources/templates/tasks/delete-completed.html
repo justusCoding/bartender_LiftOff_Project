@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+    <header>Remove a Completed Task</header>
+    </br>
+        <p th:unless="${completedtasks} and ${completedtasks.size()}">
+            You have not added any TODO tasks yet!
+        </p>
+        <form action="/tasks/delete-completed" method="POST">
+            <th:block th:each="task : ${completedtasks}">
+                <label>
+                    <input type="checkbox" name="completedTaskIds" th:value="${task.completedTaskId}" />
+                    <span th:text="${task.completedTaskType.displayName + ' | ' + task.completedTaskName + ' | ' + task.completedTaskNotes}"></span>
+                </label><br/>
+            </th:block>
+            <button type="submit">Delete Completed Task</button>
+        </form>
+        <p><a href="/tasks/add-completed">Add Completed Task</a></p>
+        <p><a href="/tasks/list-completed">Completed Task List</a></p>
+        <div th:replace="~{fragments :: home}"></div>
+</body>
+</html>

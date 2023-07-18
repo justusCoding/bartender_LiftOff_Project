@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+    <header>Remove a TODO Task</header>
+    </br>
+        <p th:unless="${todotasks} and ${todotasks.size()}">
+            You have not added any TODO tasks yet!
+        </p>
+        <form action="/tasks/delete-todo" method="POST">
+            <th:block th:each="task : ${todotasks}">
+                <label>
+                    <input type="checkbox" name="todoTaskIds" th:value="${task.todoTaskId}" />
+                    <span th:text="${task.todoTaskType.displayName + ' | ' + task.todoTaskName + ' | ' + task.todoTaskNotes}"></span>
+                </label><br/>
+            </th:block>
+            <button type="submit">Delete TODO Task</button>
+        </form>
+        <p><a href="/tasks/add-todo">Add TODO Task</a></p>
+        <p><a href="/tasks/list-todo">TODO Task List</a></p>
+        <div th:replace="~{fragments :: home}"></div>
+</body>
+</html>
