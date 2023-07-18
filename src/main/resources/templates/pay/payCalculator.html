@@ -4,21 +4,25 @@
 <body class="container">
 <header th:replace="fragments :: header"></header>
 
-<!--TODO: Fix this!-->
-<form>
-    <label for="dateWorked">Date:</label><br>
-    <input type="date" id = "dateWorked" name="dateWorked"><br>
-    <label for="hoursWorked">Number of Hours Worked:</label><br>
-    <input type="number" id = "hoursWorked" name="hoursWorked"><br>
-    <label for="hourlyRate">Hourly Rate:</label><br>
-    <input type="number" id = "hourlyRate" name="hourlyRate"><br>
-    <label for="creditCardTips">Total Credit Card Tips:</label><br>
-    <input type="number" id = "creditCardTips" name="creditCardTips"><br>
-    <label for="cashTips">Total Cash Tips:</label><br>
-    <input type="number" id = "cashTips" name="cashTips"><br>
-    <label for="taxRate">Tax Rate:</label><br>
-    <input type="number" id = "taxRate" name="taxRate"><br>
-    <input type="submit" value="Calculate Take-Home Pay">
+<form action = "/pay/totalPayResults" method="POST">
+    <label>Date:</label><br>
+    <input type="date" name="dateWorked"><br>
+    <label>Number of Hours Worked:</label><br>
+    <input type="number" name="hoursWorked"><br>
+    Shift Worked:<br>
+    <label>AM</label>
+    <input type="radio" name="shiftWorked" value = "AM">
+    <br><label>PM</label>
+    <input type="radio" name = "shiftWorked" value = "PM">
+    <br><label>Hourly Rate:</label><br>
+    <input type="number" name="hourlyRate"><br>
+    <label>Total Credit Card Tips:</label><br>
+    <input type="number" name="creditCardTips"><br>
+    <label>Total Cash Tips:</label><br>
+    <input type="number" name="cashTips"><br>
+    <label>Tax Rate:</label><br>
+    <input type="number" name="taxRate"><br>
+    <br><input type="submit" value="Calculate Take-Home Pay">
 </form>
 </body>
 </html>

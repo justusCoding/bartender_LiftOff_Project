@@ -4,25 +4,29 @@
 <body class="container">
 <header th:replace="fragments :: header"></header>
 
-
 <h1>Total Take-Home Pay</h1>
 
-<table class="table table-striped">
-    <thead>
+    <table class="table table-striped">
+        <thead>
         <tr>
             <th>ID</th>
             <th>Date</th>
+            <th>Shift</th>
             <th>Total Pay</th>
         </tr>
-    </thead>
+        </thead>
 
-    <tr th:each="pay : ${payCalculations}">
-        <td th:text="${pay.id}"></td>
-        <td th:text="${pay.dateWorked}"></td>
-        <td th:text="${pay.totalPay}"></td>
-    </tr>
+        <tr th:each="pay : ${payCalculations}">
+            <td th:text="${pay.id}">ID</td>
+            <td th:text="${pay.dateWorked}">Date Worked</td>
+            <td th:text="${pay.shiftWorked}">Shift Worked</td>
+            <td th:text="${pay.totalPay}">Total Pay</td>
+        </tr>
 
-</table>
+    </table>
+</div>
+
 
 </body>
 </html>
+
