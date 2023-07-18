@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:input="http://www.w3.org/1999/html">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<form  method="post">
+    <div class="form-group">
+        <label>Cocktail Name
+            <input th:field="${cocktail.name}" class="form-control">
+        </label>
+        <p class="error" th:errors="${cocktail.name}"></p>
+    </div>
+
+    <div class="form-group">
+        <fieldset>
+            <table>
+                <thead>
+                <tr>
+                    <th>Ingredient</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ingredient, itemStat : *{recipe.ingredients}">
+                    <td><input th:field="*{recipe.ingredients[__${itemStat.index}__].name}" /></td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <div class="form-group">
+        <label>Recipe Instructions
+            <textarea th:field="${cocktail.recipe.instructions}" class="form-control"></textarea>
+        </label>
+        <p class="error" th:errors="${cocktail.recipe.instructions}"></p>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add Cocktail Recipe" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>
