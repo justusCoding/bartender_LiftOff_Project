@@ -111,7 +111,7 @@ public class AuthenticationController {
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
-            return "login";
+            return "login" ;
         }
 
         setUserInSession(request.getSession(), theUser);
