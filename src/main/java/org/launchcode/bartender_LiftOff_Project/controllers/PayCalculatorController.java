@@ -1,6 +1,8 @@
 package org.launchcode.bartender_LiftOff_Project.controllers;
 
+import org.launchcode.bartender_LiftOff_Project.data.PayRepository;
 import org.launchcode.bartender_LiftOff_Project.models.Pay;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,7 +21,8 @@ import java.util.List;
 @Controller
 public class PayCalculatorController {
 
-    private static List<Pay> payCalculations = new ArrayList<>();
+    @Autowired
+    private PayRepository payRepository;
 
     @GetMapping ("pay")
     public String renderPayCalculatorForm(Model model) {
@@ -39,8 +42,8 @@ public class PayCalculatorController {
                 + newPay.getCreditCardTips() + newPay.getCashTips())
                 * (1 - (newPay.getTaxRate() / 100));
         newPay.setTotalPay(totalPay);
-        payCalculations.add(newPay);
-        model.addAttribute("payCalculations", payCalculations);
+        payRepository.save(newPay);
+        model.addAttribute("payCalculations", payRepository.findAll());
         return "pay/totalPayResults";
     }
 

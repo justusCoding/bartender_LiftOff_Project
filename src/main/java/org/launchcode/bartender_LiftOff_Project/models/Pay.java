@@ -1,12 +1,17 @@
 package org.launchcode.bartender_LiftOff_Project.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.util.Objects;
 
+@Entity
 public class Pay {
 
-            private final int id;
-            private static int nextId = 1;
+            @Id
+            @GeneratedValue
+            private int id;
 
             @NotNull(message = "Date is a required field")
             private String dateWorked;
@@ -38,14 +43,13 @@ public class Pay {
             @DecimalMin(value = "0")
             @DecimalMax(value= "100")
             private Double taxRate;
+
 //            TODO: Make taxRate an enum?
 
             private Double totalPay;
 
             public Pay(String dateWorked, Double hoursWorked, String shiftWorked,
                        Double hourlyRate, Double creditCardTips, Double cashTips, Double taxRate) {
-                this.id = nextId;
-                nextId++;
                 this.dateWorked = dateWorked;
                 this.hoursWorked = hoursWorked;
                 this.shiftWorked = shiftWorked;
@@ -56,10 +60,7 @@ public class Pay {
                 this.totalPay = ((hourlyRate * hoursWorked) + creditCardTips + cashTips) * (1 - (taxRate / 100));
             }
 
-            public Pay() {
-                this.id = nextId;
-                nextId++;
-            }
+            public Pay() {}
 
     public String getDateWorked() {
                 return dateWorked;
