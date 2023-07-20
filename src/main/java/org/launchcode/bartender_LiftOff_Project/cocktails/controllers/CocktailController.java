@@ -22,7 +22,6 @@ public class CocktailController {
 
     @Autowired
     private CocktailRepository cocktailRepository;
-
     @Autowired
     private RecipeRepository recipeRepository;
 
@@ -90,6 +89,7 @@ public class CocktailController {
             Cocktail cocktail = result.get();
             model.addAttribute("title", cocktail.getName() + " Recipe");
             model.addAttribute("cocktail", cocktail);
+            model.addAttribute("ingredients", cocktail.getRecipe().getIngredients());
         }
 
         return "cocktails/recipe";

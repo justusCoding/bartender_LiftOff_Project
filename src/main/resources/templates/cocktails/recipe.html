@@ -5,11 +5,19 @@
 <body class="container">
 <header th:replace="fragments :: header"></header>
 
-    <h3>Ingredients</h3>
-    <p th:each="ingredient : ${cocktail.recipe.ingredients}" th:text="${ingredient.name}"></p>
-    <br>
-    <h3>Instructions</h3>
-    <p th:text="${cocktail.recipe.instructions}"></p>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Required Ingredients</th>
+    </tr>
+    </thead>
+
+    <tr th:each="ingredient: ${ingredients}">
+        <td><a th:href="'/cocktails/search?search-term=' + ${ingredient.name}" th:text="${ingredient.name}"></a></td>
+    </tr>
+</table>
+
+<p th:text="${cocktail.recipe.instructions}"></p>
 
 </body>
 </html>

@@ -16,6 +16,10 @@
         <td><a th:href="'/cocktails/recipe?cocktailId=' + ${result.id}" th:text="${result.name}"></a></td>
     </tr>
 
+    <tr th:each="result : ${results2}">
+        <td><a th:href="'/cocktails/recipe?cocktailId=' + ${result.id}" th:text="${result.name}"></a></td>
+    </tr>
+
 </table>
 
 

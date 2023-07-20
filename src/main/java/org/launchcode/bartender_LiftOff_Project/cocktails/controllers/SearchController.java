@@ -20,11 +20,11 @@ public class SearchController {
 
     @GetMapping("")
     public String cocktailSearch(@RequestParam("search-term") String searchTerm, Model model) {
+        // TODO: CLEAN UP / VALIDATION / ERROR HANDLING
         model.addAttribute("title", "Search");
         model.addAttribute("search-term", searchTerm);
         List<Cocktail> searchResults = cocktailRepository.findByNameContainingIgnoreCase(searchTerm);
-        List<Cocktail> searchResults2 = cocktailRepository.findByIngredientContainingIgnoreCase(searchTerm);
-
+        List<Cocktail> searchResults2 = cocktailRepository.findCocktailsByIngredientName(searchTerm);
         model.addAttribute("results", searchResults);
         model.addAttribute("results2", searchResults2);
         return "cocktails/search";
