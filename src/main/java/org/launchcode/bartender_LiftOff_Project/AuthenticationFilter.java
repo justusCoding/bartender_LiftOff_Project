@@ -30,7 +30,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
         return false;
     }
     @Override
-    public boolean preHandle(HttpServletRequest request,
+    public boolean preHandle (HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws IOException {
         if (isWhitelisted(request.getRequestURI())) {
