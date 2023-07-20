@@ -5,24 +5,54 @@
 <header th:replace="fragments :: header"></header>
 
 <form action = "/pay/totalPayResults" method="POST">
-    <label>Date:</label><br>
-    <input type="date" name="dateWorked"><br>
-    <label>Number of Hours Worked:</label><br>
-    <input type="number" name="hoursWorked"><br>
-    Shift Worked:<br>
-    <label>AM</label>
-    <input type="radio" name="shiftWorked" value = "AM">
-    <br><label>PM</label>
-    <input type="radio" name = "shiftWorked" value = "PM">
-    <br><label>Hourly Rate:</label><br>
-    <input type="number" name="hourlyRate"><br>
-    <label>Total Credit Card Tips:</label><br>
-    <input type="number" name="creditCardTips"><br>
-    <label>Total Cash Tips:</label><br>
-    <input type="number" name="cashTips"><br>
-    <label>Tax Rate:</label><br>
-    <input type="number" name="taxRate"><br>
-    <br><input type="submit" value="Calculate Take-Home Pay">
+    <div>
+        <label>Date:</label><br>
+        <input type="date" th:field="${pay.dateWorked}"/>
+    </div>
+    <p th:errors="${pay.dateWorked}"></p>
+
+    <div>
+        <label>Number of Hours Worked:</label><br>
+        <input th:field="${pay.hoursWorked}">
+    </div>
+    <p th:errors="${pay.hoursWorked}"></p>
+
+    <div> Shift Worked:
+        <br>
+        <input type="radio" name="shiftWorked" value = "AM">
+        <label>AM</label><br>
+
+        <input type="radio" name="shiftWorked" value = "PM">
+        <label>PM</label><br>
+    </div>
+    <p th:errors="${pay.shiftWorked}"></p><br>
+
+    <div>
+        <label>Hourly Rate:</label><br>
+        <input th:field="${pay.hourlyRate}">
+    </div>
+    <p th:errors="${pay.hourlyRate}"></p><br>
+
+    <div>
+        <label>Credit Card Tips:</label><br>
+        <input th:field="${pay.creditCardTips}">
+    </div>
+    <p th:errors="${pay.creditCardTips}"></p><br>
+
+    <div>
+        <label>Cash Tips:</label><br>
+        <input th:field="${pay.cashTips}">
+    </div>
+    <p th:errors="${pay.cashTips}"></p><br>
+
+    <div>
+        <label>Tax Rate:</label><br>
+        <input th:field="${pay.taxRate}">
+    </div><br>
+    <p th:errors="${pay.taxRate}"></p><br>
+
+    <div><input type="submit" value="Calculate Take-Home Pay"></div>
+
 </form>
 </body>
 </html>

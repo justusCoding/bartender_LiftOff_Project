@@ -1,50 +1,49 @@
 package org.launchcode.bartender_LiftOff_Project.models;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.util.Objects;
 
 public class Pay {
 
             private final int id;
-            private int nextId = 1;
+            private static int nextId = 1;
 
-            @NotBlank
+            @NotNull(message = "Date is a required field")
             private String dateWorked;
 
-            @NotBlank
+            @NotNull(message = "Hours worked is a required field")
             @DecimalMin(value = "0.25")
             @DecimalMax(value = "24")
-            private double hoursWorked;
+            private Double hoursWorked;
 
-            @NotBlank
+            @NotNull(message = "Shift worked is a required field")
             private String shiftWorked;
 
-            @NotBlank
+            @NotNull(message = "Hourly rate is a required field")
             @DecimalMin(value = "0.25")
             @DecimalMax(value = "1000000")
-            private double hourlyRate;
+            private Double hourlyRate;
 
-            @NotBlank
+            @NotNull(message = "Credit card tips is a required field")
             @DecimalMin(value = "0.25")
             @DecimalMax(value = "1000000")
-            private double creditCardTips;
+            private Double creditCardTips;
 
-            @NotBlank
+            @NotNull(message = "Cash tips is a required field")
             @DecimalMin(value = "0.25")
             @DecimalMax(value = "1000000")
-            private double cashTips;
+            private Double cashTips;
 
-            @NotBlank
-            @Size(min = 0, max = 100)
-            private double taxRate;
+            @NotNull(message = "Tax rate is a required field")
+            @DecimalMin(value = "0")
+            @DecimalMax(value= "100")
+            private Double taxRate;
 //            TODO: Make taxRate an enum?
 
-            private double totalPay;
+            private Double totalPay;
 
-            public Pay(String dateWorked, double hoursWorked, String shiftWorked,
-                       double hourlyRate, double creditCardTips, double cashTips, double taxRate) {
+            public Pay(String dateWorked, Double hoursWorked, String shiftWorked,
+                       Double hourlyRate, Double creditCardTips, Double cashTips, Double taxRate) {
                 this.id = nextId;
                 nextId++;
                 this.dateWorked = dateWorked;
@@ -54,10 +53,15 @@ public class Pay {
                 this.creditCardTips = creditCardTips;
                 this.cashTips = cashTips;
                 this.taxRate = taxRate;
-                this.totalPay = ((hourlyRate * hoursWorked) + creditCardTips + cashTips) * (100 - taxRate);
+                this.totalPay = ((hourlyRate * hoursWorked) + creditCardTips + cashTips) * (1 - (taxRate / 100));
             }
 
-            public String getDateWorked() {
+            public Pay() {
+                this.id = nextId;
+                nextId++;
+            }
+
+    public String getDateWorked() {
                 return dateWorked;
             }
 
@@ -65,23 +69,23 @@ public class Pay {
                 this.dateWorked = dateWorked;
             }
 
-            public double getTotalPay() {
+            public Double getTotalPay() {
                 return totalPay;
             }
 
-            public void setTotalPay(double totalPay) {
-                this.totalPay = totalPay;
-            }
+    public void setTotalPay(Double totalPay) {
+        this.totalPay = totalPay;
+    }
 
-            public int getId() {
+    public int getId() {
                 return id;
             }
 
-            public double getHoursWorked() {
+            public Double getHoursWorked() {
                 return hoursWorked;
             }
 
-            public void setHoursWorked(double hoursWorked) {
+            public void setHoursWorked(Double hoursWorked) {
                 this.hoursWorked = hoursWorked;
             }
 
@@ -93,45 +97,57 @@ public class Pay {
                 this.shiftWorked = shiftWorked;
             }
 
-            public double getHourlyRate() {
+            public Double getHourlyRate() {
                 return hourlyRate;
             }
 
-            public void setHourlyRate(double hourlyRate) {
+            public void setHourlyRate(Double hourlyRate) {
                 this.hourlyRate = hourlyRate;
             }
 
-            public double getCreditCardTips() {
+            public Double getCreditCardTips() {
                 return creditCardTips;
             }
 
-            public void setCreditCardTips(double creditCardTips) {
+            public void setCreditCardTips(Double creditCardTips) {
                 this.creditCardTips = creditCardTips;
             }
 
-            public double getCashTips() {
+            public Double getCashTips() {
                 return cashTips;
             }
 
-            public void setCashTips(double cashTips) {
+            public void setCashTips(Double cashTips) {
                 this.cashTips = cashTips;
             }
 
-            public double getTaxRate() {
+            public Double getTaxRate() {
                 return taxRate;
             }
 
-            public void setTaxRate(double taxRate) {
+            public void setTaxRate(Double taxRate) {
                 this.taxRate = taxRate;
             }
 
             @Override
             public String toString() {
-                return "On" + dateWorked +
+                return "On " + dateWorked +
                         ", you earned $" + totalPay +
                         ".";
             }
-            //TODO: Add Equals and HashCode overrides
-        }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+                Pay pay = (Pay) o;
+                return id == pay.id;
+            }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}
 
 
