@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+    <header>Add TODO Task</header>
+    </br>
+    <form action="/tasks/add-todo" method="POST">
+        <div>
+            <label>Type:
+                <select th:field="${todoTasks.todoTaskType}">
+                    <option th:each="type : ${todoTaskTypes}"
+                            th:value="${type}"
+                            th:text="${type.displayName}"
+                    ></option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>Name:
+                <input th:field="${todoTasks.todoTaskName}" />
+            </label>
+            <p class="error" th:errors="${todoTasks.todoTaskName}"></p>
+        </div>
+        <div>
+            <label>Notes:
+                <input th:field="${todoTasks.todoTaskNotes}" />
+            </label>
+            <p class="error" th:errors="${todoTasks.todoTaskNotes}"></p>
+        </div>
+        <div>
+            <label>Desired Completion Date:
+                <input type="date" id="desiredCompletionDate" name="desiredCompletionDate">
+            </label>
+        </div>
+        <button type="submit">Add New TODO Task</button>
+    </form>
+    </br>
+    <p><a href="/tasks/delete-todo">Delete TODO Task</a></p>
+    <p><a href="/tasks/list-todo">TODO Task List</a></p>
+    <div th:replace="~{fragments :: home}"></div>
+</body>
+</html>
