@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head>
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #DDD;
+    }
+    tr {
+      border-bottom: 1px solid #ddd;
+    }
+    tr:hover {background-color: #D6EEEE;}
+    </style>
+</head>
 <body>
-    <header>Completed Tasks List</header>
+    <h2>Completed Tasks List</h2>
     </br>
         <p th:unless="${completedtasks} and ${completedtasks.size()}">
             You have not added any completed tasks yet!
         </p>
-        <div>
-            <th:block th:each="task : ${completedtasks}">
-                <li th:text="${task.completedTaskType.displayName + ' | ' + task.completedTaskName + ' | ' + task.completedTaskNotes + ' | ' + task.dateCompleted + ' | ' + task.employeeCompletedBy.displayName}"></li>
-            </th:block>
-        </div></br>
+            <table class="table table-sortable">
+                <tr>
+                    <th>Type</th>
+                    <th>Task</th>
+                    <th>Notes</th>
+                    <th>Date Completed</th>
+                    <th>Employee Completed By</th>
+                </tr>
+                <tr th:each="task : ${completedtasks}">
+                    <td th:text="${task.completedTaskType.displayName}" />
+                    <td th:text="${task.completedTaskName}" />
+                    <td th:text="${task.completedTaskNotes}" />
+                    <td th:text="${task.dateCompleted}" />
+                    <td th:text="${task.employeeCompletedBy.displayName}" />
+                </tr>
+            </table>
         <p><a href="/tasks/add-completed">Add Completed Task</a></p>
         <p><a href="/tasks/delete-completed">Delete Completed Task</a></p>
-        <div th:replace="~{fragments :: home}"></div>
+        <p><a href="/tasks/task-manager">Task Manager</a></p>
+    <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>

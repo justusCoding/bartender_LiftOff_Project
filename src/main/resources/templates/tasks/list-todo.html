@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head>
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #DDD;
+    }
+    tr {
+      border-bottom: 1px solid #ddd;
+    }
+    tr:hover {background-color: #D6EEEE;}
+    </style>
+</head>
 <body>
-    <header>TODO Tasks List</header>
+    <h2>TODO Tasks List</h2>
     </br>
         <p th:unless="${todotasks} and ${todotasks.size()}">
-            You have not added any TODO tasks yet!
+            You have not added any todo tasks yet!
         </p>
-        <div>
-            <th:block th:each="task : ${todotasks}">
-                <li th:text="${task.todoTaskType.displayName + ' | ' + task.todoTaskName + ' | ' + task.todoTaskNotes + ' | ' + task.desiredCompletionDate}"></li>
-            </th:block>
-        </div></br>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Task</th>
+                    <th>Notes</th>
+                    <th>Desired Completion Date</th>
+                </tr>
+                <tr th:each="task : ${todotasks}">
+                    <td th:text="${task.todoTaskType.displayName}" />
+                    <td th:text="${task.todoTaskName}" />
+                    <td th:text="${task.todoTaskNotes}" />
+                    <td th:text="${task.desiredCompletionDate}" />
+                </tr>
+            </table>
         <p><a href="/tasks/add-todo">Add TODO Task</a></p>
         <p><a href="/tasks/delete-todo">Delete TODO Task</a></p>
+        <p><a href="/tasks/task-manager">Task Manager</a></p>
         <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>

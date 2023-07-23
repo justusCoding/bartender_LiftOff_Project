@@ -16,14 +16,14 @@
             </label>
         </div>
         <div>
-            <label>Name:
+            <label>Task:
                 <input th:field="${todoTasks.todoTaskName}" />
             </label>
             <p class="error" th:errors="${todoTasks.todoTaskName}"></p>
         </div>
         <div>
             <label>Notes:
-                <input th:field="${todoTasks.todoTaskNotes}" />
+                <textarea th:field="${todoTasks.todoTaskNotes}" />
             </label>
             <p class="error" th:errors="${todoTasks.todoTaskNotes}"></p>
         </div>
