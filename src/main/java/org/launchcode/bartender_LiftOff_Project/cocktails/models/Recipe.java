@@ -15,8 +15,7 @@ public class Recipe extends AbstractEntity {
     private String instructions;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @NotNull
-    private final List<Ingredient> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
 
 
     public Recipe(@Size(max = 500, message = "Instructions must be less than 500 characters") String instructions) {
@@ -39,5 +38,9 @@ public class Recipe extends AbstractEntity {
 
     public void addIngredient(Ingredient ingredient) {
         this.ingredients.add(ingredient);
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }

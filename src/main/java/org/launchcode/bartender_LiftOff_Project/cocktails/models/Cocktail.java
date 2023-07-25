@@ -16,7 +16,6 @@ public class Cocktail extends AbstractEntity {
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @NotNull
     @Valid
     private Recipe recipe;
 
