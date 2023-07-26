@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.support.SessionStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -66,8 +67,14 @@ public class CocktailController {
         return "cocktails/create";
     }
 
+    @PostMapping(value = "create", params = {"removeIngredient"})
+    public String removeIngredient(Model model, Cocktail cocktail, HttpServletRequest request) {
+        cocktail.getRecipe().getIngredients().remove(Integer.parseInt(request.getParameter("removeIngredient")));
+        return "cocktails/create";
+    }
+
     @PostMapping("create")
-    public String processCreateCocktailForm(Model model, Cocktail cocktail, Errors errors, SessionStatus status){
+    public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Cocktail cocktail, Errors errors, SessionStatus status){
             for (Iterator<Ingredient> itr = cocktail.getRecipe().getIngredients().iterator(); itr.hasNext(); ) {
                 Ingredient ingredient = itr.next();
                 Optional<Ingredient> existingIngredient = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
