@@ -18,18 +18,38 @@
     </style>
 </head>
 <body>
-    <h2>Completed Tasks List</h2>
+    <h2>Completed Tasks</h2>
     </br>
         <p th:unless="${completedtasks} and ${completedtasks.size()}">
             You have not added any completed tasks yet!
         </p>
-            <table class="table table-sortable">
+            <table id="completed-table" class="table table-sortable">
                 <tr>
-                    <th>Type</th>
+                    <th>Type
+                        <select id="completed-type-list" onchange="sortByCompletedTaskType()" class='form-control'>
+                            <option>All</option>
+                            <option>Cleaning</option>
+                            <option>Stocking</option>
+                            <option>Rotating</option>
+                            <option>Ordering</option>
+                            <option>Miscellaneous</option>
+                        </select>
+                    </th>
                     <th>Task</th>
                     <th>Notes</th>
                     <th>Date Completed</th>
-                    <th>Employee Completed By</th>
+                    <th>Employee Completed By
+                        <select id="employee-list" onchange="sortByEmployeeCompletedBy()" class='form-control'>
+                            <option>All</option>
+                            <option>Ali</option>
+                            <option>Aurora</option>
+                            <option>Andrew</option>
+                            <option>Katherine</option>
+                            <option>Justus</option>
+                            <option>Amr</option>
+                            <option>Other</option>
+                        </select>
+                    </th>
                 </tr>
                 <tr th:each="task : ${completedtasks}">
                     <td th:text="${task.completedTaskType.displayName}" />
@@ -43,5 +63,42 @@
         <p><a href="/tasks/delete-completed">Delete Completed Task</a></p>
         <p><a href="/tasks/task-manager">Task Manager</a></p>
     <div th:replace="~{fragments :: home}"></div>
+    <script>
+        function sortByCompletedTaskType() {
+          let input, filter, table, tr, td, i;
+          input = document.getElementById("completed-type-list");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("completed-table");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+
+          function sortByEmployeeCompletedBy() {
+          let input, filter, table, tr, td, i;
+          input = document.getElementById("employee-list");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("completed-table");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+    </script>
 </body>
 </html>

@@ -18,14 +18,23 @@
     </style>
 </head>
 <body>
-    <h2>TODO Tasks List</h2>
+    <h2>To Do Tasks</h2>
     </br>
         <p th:unless="${todotasks} and ${todotasks.size()}">
             You have not added any todo tasks yet!
         </p>
-            <table>
+            <table id="todo-table" class="table table-sortable">
                 <tr>
-                    <th>Type</th>
+                    <th>Type
+                        <select id="todo-type-list" onchange="sortByTodoTaskType()" class='form-control'>
+                            <option>All</option>
+                            <option>Cleaning</option>
+                            <option>Stocking</option>
+                            <option>Rotating</option>
+                            <option>Ordering</option>
+                            <option>Miscellaneous</option>
+                        </select>
+                    </th>
                     <th>Task</th>
                     <th>Notes</th>
                     <th>Desired Completion Date</th>
@@ -37,9 +46,28 @@
                     <td th:text="${task.desiredCompletionDate}" />
                 </tr>
             </table>
-        <p><a href="/tasks/add-todo">Add TODO Task</a></p>
-        <p><a href="/tasks/delete-todo">Delete TODO Task</a></p>
+        <p><a href="/tasks/add-todo">Add To Do Task</a></p>
+        <p><a href="/tasks/delete-todo">Delete To Do Task</a></p>
         <p><a href="/tasks/task-manager">Task Manager</a></p>
         <div th:replace="~{fragments :: home}"></div>
+        <script>
+            function sortByTodoTaskType() {
+              let input, filter, table, tr, td, i;
+              input = document.getElementById("todo-type-list");
+              filter = input.value.toUpperCase();
+              table = document.getElementById("todo-table");
+              tr = table.getElementsByTagName("tr");
+              for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                  if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+            }
+    </script>
 </body>
 </html>
