@@ -59,21 +59,21 @@
                     <td th:text="${task.employeeCompletedBy.displayName}" />
                 </tr>
             </table>
-        <p><a href="/tasks/add-completed">Add Completed Task</a></p>
-        <p><a href="/tasks/delete-completed">Delete Completed Task</a></p>
-        <p><a href="/tasks/task-manager">Task Manager</a></p>
+        <p><a href="/tasks/completed/add">Add Completed Task</a></p>
+        <p><a href="/tasks/completed/delete">Delete Completed Task</a></p>
+        <p><a href="/tasks">Task Manager</a></p>
     <div th:replace="~{fragments :: home}"></div>
     <script>
         function sortByCompletedTaskType() {
           let input, filter, table, tr, td, i;
           input = document.getElementById("completed-type-list");
-          filter = input.value.toUpperCase();
+          filter = input.value;
           table = document.getElementById("completed-table");
           tr = table.getElementsByTagName("tr");
           for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];
             if (td) {
-              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              if (td.innerHTML.indexOf(filter) > -1) {
                 tr[i].style.display = "";
               } else {
                 tr[i].style.display = "none";

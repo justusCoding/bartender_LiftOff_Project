@@ -4,7 +4,7 @@
 <body>
     <header>Add Completed Task</header>
     </br>
-    <form action="/tasks/add-completed" method="POST">
+    <form action="/tasks/completed/add" method="POST">
         <div>
             <label>Type:
                 <select th:field="${completedTasks.completedTaskType}">
@@ -45,8 +45,8 @@
         <button type="submit">Add New Completed Task</button>
         </form>
         </br>
-        <p><a href="/tasks/delete-completed">Delete Completed Task</a></p>
-        <p><a href="/tasks/list-completed">Completed Task List</a></p>
+        <p><a href="/tasks/completed/delete">Delete Completed Task</a></p>
+        <p><a href="/tasks/completed/list">Completed Task List</a></p>
         <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>

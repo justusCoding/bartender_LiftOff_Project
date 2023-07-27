@@ -4,7 +4,7 @@
 <body>
     <header>Add TODO Task</header>
     </br>
-    <form action="/tasks/add-todo" method="POST">
+    <form action="/tasks/todo/add" method="POST">
         <div>
             <label>Type:
                 <select th:field="${todoTasks.todoTaskType}">
@@ -35,8 +35,8 @@
         <button type="submit">Add New TODO Task</button>
     </form>
     </br>
-    <p><a href="/tasks/delete-todo">Delete TODO Task</a></p>
-    <p><a href="/tasks/list-todo">TODO Task List</a></p>
+    <p><a href="/tasks/todo/delete">Delete TODO Task</a></p>
+    <p><a href="/tasks/todo/list">TODO Task List</a></p>
     <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>
