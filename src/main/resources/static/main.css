@@ -1,0 +1,17 @@
+h1 {
+	color: #F7F88B;
+
+}
+
+a {
+    color: #F7F88B;
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+body {
+ background-image: url("photos/jmixmusebackground.jpg");
+ background-size: 1530px 500px;
+  background-repeat:no-repeat
+}
