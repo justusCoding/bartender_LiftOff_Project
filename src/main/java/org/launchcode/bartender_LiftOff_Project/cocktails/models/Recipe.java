@@ -1,5 +1,7 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.models;
 
+import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
