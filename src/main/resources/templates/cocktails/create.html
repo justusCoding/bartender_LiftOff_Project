@@ -13,18 +13,18 @@
 
     <div class="form-group" th:align="left">
         <label for="ingredients" id="ingredients">Ingredients</label>
+            <br />
             <button class="btn btn-info" th:nowrap="true" th:align="right" type="submit" name="addIngredient" id="addIngredient">Add Ingredient</button>
     </div>
     <div th:if="*{recipe.ingredients}">
         <table>
-            <thead>
+            <thead th:if="*{recipe.ingredients.size() > 0}">
             <tr>
                 <th>Ingredient Name</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="ingredient, stat: *{recipe.ingredients}">
-                <td th:text="${stat.count}">1</td>
                 <td><input type="text" class="form-control" th:field="*{recipe.ingredients[__${stat.index}__].name}"></td>
 
                 <td><button class="btn btn-info" type="submit" name="removeIngredient" id="removeIngredient" th:value="${stat.index}">Remove</button></td>
@@ -34,10 +34,9 @@
     </div>
 
     <div class="form-group" th:align="left">
-    <label for="cocktail-instructions">Cocktail Name
-        <input type="text" id="cocktail-instructions" th:field="${cocktail.recipe.instructions}" class="form-control">
-    </label>
-    <p class="error" th:errors="${cocktail.name}"></p>
+    <label for="recipe-instructions">Recipe Instructions
+        <textarea id="recipe-instructions" th:field="*{recipe.instructions}" class="form-control"></textarea></label>
+    <p class="error" th:errors="*{recipe.instructions}"></p>
     </div>
 
     <div class="form-group">

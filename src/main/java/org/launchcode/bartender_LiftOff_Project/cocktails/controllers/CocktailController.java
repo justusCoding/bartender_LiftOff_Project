@@ -57,6 +57,7 @@ public class CocktailController {
 
     @PostMapping(value = "create", params = {"addIngredient"})
     public String addIngredient(Model model, Cocktail cocktail){
+        model.addAttribute("title", "Create New Cocktail Recipe");
         if(null!=cocktail){
             if(null==cocktail.getRecipe().getIngredients()){
                 cocktail.getRecipe().getIngredients().add(new Ingredient());
@@ -69,12 +70,18 @@ public class CocktailController {
 
     @PostMapping(value = "create", params = {"removeIngredient"})
     public String removeIngredient(Model model, Cocktail cocktail, HttpServletRequest request) {
+        model.addAttribute("title", "Create New Cocktail Recipe");
         cocktail.getRecipe().getIngredients().remove(Integer.parseInt(request.getParameter("removeIngredient")));
         return "cocktails/create";
     }
 
     @PostMapping("create")
     public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Cocktail cocktail, Errors errors, SessionStatus status){
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Create New Cocktail Recipe");
+            return "cocktails/create";
+        }
+        else {
             for (Iterator<Ingredient> itr = cocktail.getRecipe().getIngredients().iterator(); itr.hasNext(); ) {
                 Ingredient ingredient = itr.next();
                 Optional<Ingredient> existingIngredient = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
@@ -84,9 +91,10 @@ public class CocktailController {
                     System.out.println("ISNOTPRESENT");
                 }
             }
-        cocktailRepository.save(cocktail);
-        status.setComplete();
-        return "redirect:recipe?cocktailId=" + cocktail.getId();
+            cocktailRepository.save(cocktail);
+            status.setComplete();
+            return "redirect:recipe?cocktailId=" + cocktail.getId();
+        }
     }
 
     @GetMapping("recipe")

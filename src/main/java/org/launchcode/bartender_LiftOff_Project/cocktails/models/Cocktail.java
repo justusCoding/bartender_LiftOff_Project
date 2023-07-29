@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Cocktail extends AbstractEntity {
 
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message="Cocktail name must be between 3 and 50 characters")
     @NotBlank(message = "Cocktail name is required")
     private String name;
 

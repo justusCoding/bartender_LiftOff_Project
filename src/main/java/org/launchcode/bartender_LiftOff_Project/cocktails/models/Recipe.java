@@ -15,6 +15,7 @@ public class Recipe extends AbstractEntity {
     private String instructions;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @NotNull
     private List<Ingredient> ingredients = new ArrayList<>();
 
 
