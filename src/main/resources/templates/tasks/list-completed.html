@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+    <header>Completed Tasks List</header>
+    </br>
+        <p th:unless="${completedtasks} and ${completedtasks.size()}">
+            You have not added any completed tasks yet!
+        </p>
+        <div>
+            <th:block th:each="task : ${completedtasks}">
+                <li th:text="${task.completedTaskType.displayName + ' | ' + task.completedTaskName + ' | ' + task.completedTaskNotes + ' | ' + task.dateCompleted + ' | ' + task.employeeCompletedBy.displayName}"></li>
+            </th:block>
+        </div></br>
+        <p><a href="/tasks/add-completed">Add Completed Task</a></p>
+        <p><a href="/tasks/delete-completed">Delete Completed Task</a></p>
+        <div th:replace="~{fragments :: home}"></div>
+</body>
+</html>

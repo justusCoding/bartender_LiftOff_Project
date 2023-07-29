@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+    <header>TODO Tasks List</header>
+    </br>
+        <p th:unless="${todotasks} and ${todotasks.size()}">
+            You have not added any TODO tasks yet!
+        </p>
+        <div>
+            <th:block th:each="task : ${todotasks}">
+                <li th:text="${task.todoTaskType.displayName + ' | ' + task.todoTaskName + ' | ' + task.todoTaskNotes + ' | ' + task.desiredCompletionDate}"></li>
+            </th:block>
+        </div></br>
+        <p><a href="/tasks/add-todo">Add TODO Task</a></p>
+        <p><a href="/tasks/delete-todo">Delete TODO Task</a></p>
+        <div th:replace="~{fragments :: home}"></div>
+</body>
+</html>

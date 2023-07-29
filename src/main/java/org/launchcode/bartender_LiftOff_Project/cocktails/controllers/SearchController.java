@@ -25,6 +25,7 @@ public class SearchController {
         model.addAttribute("search-term", searchTerm);
         List<Cocktail> searchResults = cocktailRepository.findByNameContainingIgnoreCase(searchTerm);
         List<Cocktail> searchResults2 = cocktailRepository.findCocktailsByIngredientName(searchTerm);
+
         model.addAttribute("results", searchResults);
         model.addAttribute("results2", searchResults2);
         return "cocktails/search";
