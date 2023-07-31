@@ -5,6 +5,7 @@ import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Recipe extends AbstractEntity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @NotNull
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private List<@Valid Ingredient> ingredients = new ArrayList<>();
 
 
     public Recipe(@Size(max = 500, message = "Instructions must be less than 500 characters") String instructions) {

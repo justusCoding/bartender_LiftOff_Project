@@ -37,7 +37,7 @@ public class CocktailController {
 
     @GetMapping
     public String displayCocktails(Model model) {
-        model.addAttribute("title", "Recently Added Cocktails");
+        model.addAttribute("title", "Cocktail Recipes");
         model.addAttribute("cocktails", cocktailRepository.findAll());
         model.addAttribute("ingredients", ingredientRepository.findAll());
 
@@ -50,6 +50,7 @@ public class CocktailController {
 
         Cocktail cocktail = new Cocktail();
         cocktail.setRecipe(new Recipe());
+        model.addAttribute("ingredientValidatior", new Ingredient());
 
         model.addAttribute("cocktail", cocktail);
         return "cocktails/create";
@@ -77,18 +78,19 @@ public class CocktailController {
 
     @PostMapping("create")
     public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Cocktail cocktail, Errors errors, SessionStatus status){
+        List<Ingredient> ingredientList = cocktail.getRecipe().getIngredients();
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create New Cocktail Recipe");
             return "cocktails/create";
         }
         else {
-            for (Iterator<Ingredient> itr = cocktail.getRecipe().getIngredients().iterator(); itr.hasNext(); ) {
-                Ingredient ingredient = itr.next();
+            //checking for duplicates
+            for (int i = 0; i < ingredientList.size(); i++) {
+                Ingredient ingredient = ingredientList.get(i);
                 Optional<Ingredient> existingIngredient = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
                 if (existingIngredient.isPresent()) {
-                    System.out.println("ISPRESENT");
-                } else {
-                    System.out.println("ISNOTPRESENT");
+                    ingredientList.remove(ingredient);
+                    ingredientList.add(i, existingIngredient.get());
                 }
             }
             cocktailRepository.save(cocktail);
@@ -112,5 +114,4 @@ public class CocktailController {
 
         return "cocktails/recipe";
     }
-
 }
