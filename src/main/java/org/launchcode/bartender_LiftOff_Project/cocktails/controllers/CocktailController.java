@@ -1,5 +1,6 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.controllers;
 
+import net.bytebuddy.asm.Advice;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.CocktailRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.RecipeRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.IngredientRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,8 +40,8 @@ public class CocktailController {
     @GetMapping
     public String displayCocktails(Model model) {
         model.addAttribute("title", "Cocktail Recipes");
-        model.addAttribute("cocktails", cocktailRepository.findAll());
-        model.addAttribute("ingredients", ingredientRepository.findAll());
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        model.addAttribute("cocktails", cocktailRepository.findCocktailsCreatedAfterOrderByDateAddedDesc(startDate));
 
         return "cocktails/index";
     }
@@ -50,7 +52,6 @@ public class CocktailController {
 
         Cocktail cocktail = new Cocktail();
         cocktail.setRecipe(new Recipe());
-        model.addAttribute("ingredientValidatior", new Ingredient());
 
         model.addAttribute("cocktail", cocktail);
         return "cocktails/create";

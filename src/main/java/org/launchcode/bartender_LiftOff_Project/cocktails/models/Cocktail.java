@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 public class Cocktail extends AbstractEntity {
@@ -24,7 +25,7 @@ public class Cocktail extends AbstractEntity {
     private Recipe recipe;
 
     @CreationTimestamp
-    private Timestamp dateAdded;
+    private LocalDateTime dateAdded;
 
     // CONSTRUCTORS
     public Cocktail(String name, Recipe recipe) {
