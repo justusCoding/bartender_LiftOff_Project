@@ -1,28 +1,35 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.controllers;
 
+import net.bytebuddy.asm.Advice;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.CocktailRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.RecipeRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.IngredientRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Cocktail;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Ingredient;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Recipe;
-import org.launchcode.bartender_LiftOff_Project.cocktails.models.dto.RecipeIngredientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.support.SessionStatus;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
+@SessionAttributes("cocktail")
 @RequestMapping("cocktails")
 public class CocktailController {
 
     @Autowired
     private CocktailRepository cocktailRepository;
-
     @Autowired
     private RecipeRepository recipeRepository;
 
@@ -32,52 +39,65 @@ public class CocktailController {
 
     @GetMapping
     public String displayCocktails(Model model) {
-        model.addAttribute("title", "Recently Added Cocktails");
-        model.addAttribute("cocktails", cocktailRepository.findAll());
-        model.addAttribute("ingredients", ingredientRepository.findAll());
+        model.addAttribute("title", "Cocktail Recipes");
+        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+        model.addAttribute("cocktails", cocktailRepository.findCocktailsCreatedAfterOrderByDateAddedDesc(startDate));
 
         return "cocktails/index";
     }
+
     @GetMapping("create")
     public String displayCreateCocktailForm(Model model) {
         model.addAttribute("title", "Create New Cocktail Recipe");
 
-        Cocktail newCocktail = new Cocktail();
-        RecipeIngredientDto recipeIngredients = new RecipeIngredientDto();
+        Cocktail cocktail = new Cocktail();
+        cocktail.setRecipe(new Recipe());
 
-        for (int i = 0; i < 3; i++) {
-            recipeIngredients.addIngredient(new Ingredient());
+        model.addAttribute("cocktail", cocktail);
+        return "cocktails/create";
+    }
+
+    @PostMapping(value = "create", params = {"addIngredient"})
+    public String addIngredient(Model model, Cocktail cocktail){
+        model.addAttribute("title", "Create New Cocktail Recipe");
+        if(null!=cocktail){
+            if(null==cocktail.getRecipe().getIngredients()){
+                cocktail.getRecipe().getIngredients().add(new Ingredient());
+            } else {
+                cocktail.getRecipe().getIngredients().add(new Ingredient());
+            }
         }
+        return "cocktails/create";
+    }
 
-        recipeIngredients.setRecipe(newCocktail.getRecipe());
-        model.addAttribute("cocktail", newCocktail);
-        model.addAttribute("recipe", recipeIngredients);
-
+    @PostMapping(value = "create", params = {"removeIngredient"})
+    public String removeIngredient(Model model, Cocktail cocktail, HttpServletRequest request) {
+        model.addAttribute("title", "Create New Cocktail Recipe");
+        cocktail.getRecipe().getIngredients().remove(Integer.parseInt(request.getParameter("removeIngredient")));
         return "cocktails/create";
     }
 
     @PostMapping("create")
-    public String processCreateCocktailForm(@ModelAttribute @Valid Cocktail newCocktail, @ModelAttribute @Valid RecipeIngredientDto recipeIngredients, Errors error, Model model) {
-        if (error.hasErrors()) {
+    public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Cocktail cocktail, Errors errors, SessionStatus status){
+        List<Ingredient> ingredientList = cocktail.getRecipe().getIngredients();
+        if (errors.hasErrors()) {
             model.addAttribute("title", "Create New Cocktail Recipe");
             return "cocktails/create";
         }
         else {
-            Recipe recipe = newCocktail.getRecipe();
-            for (Ingredient ingredient : recipeIngredients.getIngredients()) {
+            //checking for duplicates
+            for (int i = 0; i < ingredientList.size(); i++) {
+                Ingredient ingredient = ingredientList.get(i);
                 Optional<Ingredient> existingIngredient = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
                 if (existingIngredient.isPresent()) {
-                    recipe.addIngredient((existingIngredient.get()));
-                }
-                else {
-                    recipe.addIngredient(ingredient);
+                    ingredientList.remove(ingredient);
+                    ingredientList.add(i, existingIngredient.get());
                 }
             }
+            cocktailRepository.save(cocktail);
+            status.setComplete();
+            return "redirect:recipe?cocktailId=" + cocktail.getId();
         }
-
-        cocktailRepository.save(newCocktail);
-
-        return "redirect:recipe?cocktailId=" + newCocktail.getId();
     }
 
     @GetMapping("recipe")
@@ -90,9 +110,9 @@ public class CocktailController {
             Cocktail cocktail = result.get();
             model.addAttribute("title", cocktail.getName() + " Recipe");
             model.addAttribute("cocktail", cocktail);
+            model.addAttribute("ingredients", cocktail.getRecipe().getIngredients());
         }
 
         return "cocktails/recipe";
     }
-
 }
