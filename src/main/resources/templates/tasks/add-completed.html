@@ -4,10 +4,10 @@
 <body>
     <header>Add Completed Task</header>
     </br>
-    <form action="/tasks/add-completed" method="POST">
+    <form action="/tasks/completed/add" method="POST">
         <div>
             <label>Type:
-                <select th:field="${completedTasks.completedTaskType}">
+                <select th:field="${completedTask.completedTaskType}">
                     <option th:each="type : ${completedTaskTypes}"
                             th:value="${type}"
                             th:text="${type.displayName}"
@@ -17,15 +17,15 @@
         </div>
         <div>
             <label>Task:
-                <input th:field="${completedTasks.completedTaskName}" />
+                <input th:field="${completedTask.completedTaskName}" />
             </label>
-            <p class="error" th:errors="${completedTasks.completedTaskName}"></p>
+            <p class="error" th:errors="${completedTask.completedTaskName}"></p>
         </div>
         <div>
             <label>Notes:
-                <textarea th:field="${completedTasks.completedTaskNotes}" />
+                <textarea th:field="${completedTask.completedTaskNotes}" />
             </label>
-            <p class="error" th:errors="${completedTasks.completedTaskNotes}"></p>
+            <p class="error" th:errors="${completedTask.completedTaskNotes}"></p>
         </div>
         <div>
             <label>Date Completed:
@@ -34,7 +34,7 @@
         </div>
         <div>
             <label>Employee Completed By:
-                <select th:field="${completedTasks.employeeCompletedBy}">
+                <select th:field="${completedTask.employeeCompletedBy}">
                     <option th:each="type : ${employees}"
                             th:value="${type}"
                             th:text="${type.displayName}"
@@ -45,8 +45,8 @@
         <button type="submit">Add New Completed Task</button>
         </form>
         </br>
-        <p><a href="/tasks/delete-completed">Delete Completed Task</a></p>
-        <p><a href="/tasks/list-completed">Completed Task List</a></p>
+        <p><a href="/tasks/completed/delete">Delete Completed Task</a></p>
+        <p><a href="/tasks/completed/list">Completed Task List</a></p>
         <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>

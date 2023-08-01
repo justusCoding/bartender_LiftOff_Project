@@ -1,62 +1,61 @@
 package org.launchcode.bartender_LiftOff_Project.controllers;
 
 import org.launchcode.bartender_LiftOff_Project.data.CompletedTasksRepository;
-import org.launchcode.bartender_LiftOff_Project.models.CompletedTasks;
+import org.launchcode.bartender_LiftOff_Project.models.CompletedTask;
 import org.launchcode.bartender_LiftOff_Project.models.Employees;
 import org.launchcode.bartender_LiftOff_Project.models.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("tasks/completed")
 public class CompletedTasksController {
     @Autowired
     private CompletedTasksRepository completedTasksRepository;
 
-    @GetMapping("tasks/add-completed")
-    public String displayCompletedTasksPage(Model model) {
-        model.addAttribute(new CompletedTasks());
+    @GetMapping("add")
+    public String displayAddCompletedTasksPage(Model model) {
+        model.addAttribute(new CompletedTask());
         model.addAttribute("completedTaskTypes", TaskType.values());
         model.addAttribute("employees", Employees.values());
         return "tasks/add-completed";
     }
 
-    @PostMapping("tasks/add-completed")
-    public String processAddCompletedTasksPage(@ModelAttribute @Valid CompletedTasks completedTasks, Errors errors, Model model) {
+    @PostMapping("add")
+    public String processAddCompletedTasksPage(@ModelAttribute @Valid CompletedTask completedTask, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("completedTasks", completedTasks);
+            model.addAttribute("completedTasks", completedTask);
             model.addAttribute("errors", errors);
+            return "tasks/add-completed";
         } else {
-            completedTasksRepository.save(completedTasks);
+            completedTasksRepository.save(completedTask);
         }
-        return "tasks/add-completed";
+        return "redirect:list";
     }
 
-    @GetMapping("tasks/list-completed")
+    @GetMapping("list")
     public String displayListCompletedTasksPage(Model model) {
         model.addAttribute("completedtasks", completedTasksRepository.findAll());
         return "tasks/list-completed";
     }
 
-    @GetMapping("tasks/delete-completed")
-    public String displayDeleteCompletedTaskPage(Model model) {
+    @GetMapping("delete")
+    public String displayDeleteCompletedTasksPage(Model model) {
         model.addAttribute("completedtasks", completedTasksRepository.findAll());
         return "tasks/delete-completed";
     }
 
-    @PostMapping("tasks/delete-completed")
-    public String processDeleteCompletedTaskPage(@RequestParam(required = false) int[] completedTaskIds) {
+    @PostMapping("delete")
+    public String processDeleteCompletedTasksPage(@RequestParam(required = false) int[] completedTaskIds) {
         for (int id : completedTaskIds) {
             completedTasksRepository.deleteById(id);
         }
-        return "tasks/list-completed";
+        return "redirect:list";
     }
 }
 

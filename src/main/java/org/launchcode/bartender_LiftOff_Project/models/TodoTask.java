@@ -5,11 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class TodoTasks {
+public class TodoTask {
     @Id
     @GeneratedValue
     private int todoTaskId;
@@ -20,10 +19,10 @@ public class TodoTasks {
     private String desiredCompletionDate;
     private TaskType todoTaskType;
 
-    public TodoTasks() {
+    public TodoTask() {
     }
 
-    public TodoTasks(String todoTaskName, String todoTaskDescription, String desiredCompletionDate, TaskType todoTaskType) {
+    public TodoTask(String todoTaskName, String todoTaskDescription, String desiredCompletionDate, TaskType todoTaskType) {
         this();
         this.todoTaskName = todoTaskName;
         this.todoTaskNotes = todoTaskDescription;
@@ -77,9 +76,9 @@ public class TodoTasks {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TodoTasks)) return false;
-        TodoTasks todoTasks = (TodoTasks) o;
-        return getTodoTaskId() == todoTasks.getTodoTaskId() && Objects.equals(getTodoTaskName(), todoTasks.getTodoTaskName()) && Objects.equals(getTodoTaskNotes(), todoTasks.getTodoTaskNotes()) && Objects.equals(getDesiredCompletionDate(), todoTasks.getDesiredCompletionDate());
+        if (!(o instanceof TodoTask)) return false;
+        TodoTask todoTask = (TodoTask) o;
+        return getTodoTaskId() == todoTask.getTodoTaskId() && Objects.equals(getTodoTaskName(), todoTask.getTodoTaskName()) && Objects.equals(getTodoTaskNotes(), todoTask.getTodoTaskNotes()) && Objects.equals(getDesiredCompletionDate(), todoTask.getDesiredCompletionDate());
     }
 
     @Override

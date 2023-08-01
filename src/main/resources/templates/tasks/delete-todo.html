@@ -7,7 +7,7 @@
         <p th:unless="${todotasks} and ${todotasks.size()}">
             You have not added any TODO tasks yet!
         </p>
-        <form action="/tasks/delete-todo" method="POST">
+        <form action="/tasks/todo/delete" method="POST">
             <th:block th:each="task : ${todotasks}">
                 <label>
                     <input type="checkbox" name="todoTaskIds" th:value="${task.todoTaskId}" />
@@ -16,8 +16,8 @@
             </th:block>
             <button type="submit">Delete TODO Task</button>
         </form>
-        <p><a href="/tasks/add-todo">Add TODO Task</a></p>
-        <p><a href="/tasks/list-todo">TODO Task List</a></p>
+        <p><a href="/tasks/todo/add">Add TODO Task</a></p>
+        <p><a href="/tasks/todo/list">TODO Task List</a></p>
         <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>
