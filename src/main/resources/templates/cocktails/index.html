@@ -19,6 +19,20 @@
     </tr>
 </table>
 
+<div th:if="${userRecipes}">
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Your Recipes</th>
+    </tr>
+    </thead>
+
+    <tr th:each="recipe: ${userRecipes}">
+        <td th:text="${recipe.getId()}"></td>
+    </tr>
+</table>
+</div>
+
 <p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>
 
 </body>

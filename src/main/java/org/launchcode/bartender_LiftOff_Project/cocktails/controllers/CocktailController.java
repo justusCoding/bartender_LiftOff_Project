@@ -7,6 +7,8 @@ import org.launchcode.bartender_LiftOff_Project.cocktails.data.IngredientReposit
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Cocktail;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Ingredient;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Recipe;
+import org.launchcode.bartender_LiftOff_Project.controllers.AuthenticationController;
+import org.launchcode.bartender_LiftOff_Project.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,23 +38,37 @@ public class CocktailController {
 
     @Autowired
     private IngredientRepository ingredientRepository;
-
+    @Autowired
+    private AuthenticationController authenticationController;
 
     @GetMapping
-    public String displayCocktails(Model model) {
+    public String displayCocktails(Model model, HttpServletRequest request) {
         model.addAttribute("title", "Cocktail Recipes");
+
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
         model.addAttribute("cocktails", cocktailRepository.findCocktailsCreatedAfterOrderByDateAddedDesc(startDate));
+
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+
+        if (user != null) {
+            List<Recipe> userRecipes = user.getCreatedRecipes();
+            model.addAttribute("userRecipes", userRecipes);
+        }
 
         return "cocktails/index";
     }
 
     @GetMapping("create")
-    public String displayCreateCocktailForm(Model model) {
+    public String displayCreateCocktailForm(Model model, HttpServletRequest request) {
         model.addAttribute("title", "Create New Cocktail Recipe");
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+
 
         Cocktail cocktail = new Cocktail();
         cocktail.setRecipe(new Recipe());
+        cocktail.getRecipe().setCreator(user);
 
         model.addAttribute("cocktail", cocktail);
         return "cocktails/create";
@@ -85,7 +102,7 @@ public class CocktailController {
             return "cocktails/create";
         }
         else {
-            //checking for duplicates
+            //checking for duplicates; if found, replace
             for (int i = 0; i < ingredientList.size(); i++) {
                 Ingredient ingredient = ingredientList.get(i);
                 Optional<Ingredient> existingIngredient = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
@@ -114,5 +131,11 @@ public class CocktailController {
         }
 
         return "cocktails/recipe";
+    }
+
+    @GetMapping("recipe/edit")
+    public String displayEditRecipeForm() {
+
+        return "redirect:";
     }
 }

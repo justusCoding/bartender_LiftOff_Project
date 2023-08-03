@@ -1,12 +1,13 @@
 package org.launchcode.bartender_LiftOff_Project.models;
 
+import org.launchcode.bartender_LiftOff_Project.cocktails.models.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -21,6 +22,9 @@ public class User {
 
     @NotNull
     private String pwHash;
+
+    @OneToMany(mappedBy = "creator")
+    private final List<Recipe> createdRecipes = new ArrayList<>();
 
     public User(){}
 
@@ -39,6 +43,10 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public List<Recipe> getCreatedRecipes() {
+        return createdRecipes;
     }
 }
 

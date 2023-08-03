@@ -1,10 +1,9 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.models;
 
 import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
+import org.launchcode.bartender_LiftOff_Project.models.User;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,6 +15,9 @@ public class Recipe extends AbstractEntity {
 
     @Size(max = 500, message = "Instructions must be less than 500 characters")
     private String instructions;
+
+    @ManyToOne
+    private User creator;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @NotNull
@@ -46,5 +48,13 @@ public class Recipe extends AbstractEntity {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }
