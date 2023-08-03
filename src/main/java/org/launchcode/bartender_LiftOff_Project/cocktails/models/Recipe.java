@@ -1,5 +1,6 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.models;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
 import org.launchcode.bartender_LiftOff_Project.models.User;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +18,14 @@ public class Recipe extends AbstractEntity {
     @Size(max = 500, message = "Instructions must be less than 500 characters")
     private String instructions;
 
+    @ManyToOne(cascade=CascadeType.ALL)
+    private Cocktail cocktail;
+
+    @CreationTimestamp
+    private LocalDateTime dateAdded;
+
     @ManyToOne
-    private User creator;
+    private User author;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @NotNull
@@ -50,11 +58,27 @@ public class Recipe extends AbstractEntity {
         this.ingredients = ingredients;
     }
 
-    public User getCreator() {
-        return creator;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Cocktail getCocktail() {
+        return cocktail;
+    }
+
+    public LocalDateTime getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setCocktail(Cocktail cocktail) {
+        this.cocktail = cocktail;
+    }
+
+    public void setDateAdded(LocalDateTime dateAdded) {
+        this.dateAdded = dateAdded;
     }
 }

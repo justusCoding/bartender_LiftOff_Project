@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<form  action="#" th:action="@{create}" th:object="${cocktail}" method="post">
+<form  action="#" th:action="@{create}" th:object="${recipe}" method="post">
     <div class="form-group" th:align="left">
         <label for="cocktail-name">Cocktail Name
             <input type="text" id="cocktail-name" th:field="${cocktail.name}" class="form-control">
@@ -14,17 +14,17 @@
     <div class="form-group" th:align="left">
         <label for="ingredients" id="ingredients">Ingredients</label>
             <br />
-        <div th:if="*{recipe.ingredients}">
+        <div th:if="*{ingredients}">
             <table>
                 <tbody>
-                <tr th:each="ingredient, stat: *{recipe.ingredients}">
-                    <td><input type="text" placeholder="Ingredient name" th:field="*{recipe.ingredients[__${stat.index}__].name}"></td>
+                <tr th:each="ingredient, stat: *{ingredients}">
+                    <td><input type="text" placeholder="Ingredient name" th:field="*{ingredients[__${stat.index}__].name}"></td>
                     <td><button class="btn btn-info" type="submit" name="removeIngredient" id="removeIngredient" th:value="${stat.index}">Remove</button></td>
                 </tr>
                 </tbody>
             </table>
-            <div th:if="*{recipe.ingredients.size()} > 0">
-                <p class="error" th:errors="*{recipe.ingredients[0].name}"></p>
+            <div th:if="*{ingredients.size()} > 0">
+                <p class="error" th:errors="*{ingredients[0].name}"></p>
             </div>
         </div>
         <button class="btn btn-info" th:nowrap="true" th:align="right" type="submit" name="addIngredient" id="addIngredient">Add Ingredient</button>
@@ -32,8 +32,8 @@
 
     <div class="form-group" th:align="left">
     <label for="recipe-instructions">Recipe Instructions
-        <textarea id="recipe-instructions" th:field="*{recipe.instructions}" class="form-control"></textarea></label>
-    <p class="error" th:errors="*{recipe.instructions}"></p>
+        <textarea id="recipe-instructions" th:field="*{instructions}" class="form-control"></textarea></label>
+    <p class="error" th:errors="*{instructions}"></p>
     </div>
 
     <div class="form-group">

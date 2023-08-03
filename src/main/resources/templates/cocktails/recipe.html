@@ -13,11 +13,11 @@
     </thead>
 
     <tr th:each="ingredient: ${ingredients}">
-        <td><a th:href="'/cocktails/search?search-term=' + ${ingredient.name}" th:text="${ingredient.name}"></a></td>
+        <td th:text="${ingredient.name}"></td>
     </tr>
 </table>
 
-<p id="recipe-instructions" th:text="${cocktail.recipe.instructions}"></p>
+<p id="recipe-instructions" th:text="${recipe.instructions}"></p>
 
 </body>
 </html>

@@ -24,15 +24,15 @@ public class SearchController {
     @Autowired
     private CocktailRepository cocktailRepository;
 
-    @GetMapping("")
-    public String cocktailSearch(@NotBlank @RequestParam("search-term") String searchTerm, Model model) {
-        // TODO: CLEAN UP / VALIDATION / ERROR HANDLING
-
-        model.addAttribute("title", "Search");
-        model.addAttribute("search-term", searchTerm);
-        List<Cocktail> searchResults = cocktailRepository.searchCocktails(searchTerm);
-
-        model.addAttribute("results", searchResults);
-        return "cocktails/search";
-    }
+//    @GetMapping("")
+//    public String cocktailSearch(@NotBlank @RequestParam("search-term") String searchTerm, Model model) {
+//        // TODO: FIX
+//
+//        model.addAttribute("title", "Search");
+//        model.addAttribute("search-term", searchTerm);
+////        List<Cocktail> searchResults = cocktailRepository.searchCocktails(searchTerm);
+//
+//        model.addAttribute("results", searchResults);
+//        return "cocktails/search";
+//    }
 }

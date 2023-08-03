@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes("cocktail")
+@SessionAttributes({"recipe", "cocktail"})
 @RequestMapping("cocktails")
 public class CocktailController {
 
@@ -46,7 +46,7 @@ public class CocktailController {
         model.addAttribute("title", "Cocktail Recipes");
 
         LocalDateTime startDate = LocalDateTime.now().minusDays(1);
-        model.addAttribute("cocktails", cocktailRepository.findCocktailsCreatedAfterOrderByDateAddedDesc(startDate));
+        model.addAttribute("recipes", recipeRepository.findRecipesCreatedAfterOrderByDateAddedDesc(startDate));
 
         HttpSession session = request.getSession();
         User user = authenticationController.getUserFromSession(session);
@@ -65,44 +65,57 @@ public class CocktailController {
         HttpSession session = request.getSession();
         User user = authenticationController.getUserFromSession(session);
 
-
         Cocktail cocktail = new Cocktail();
-        cocktail.setRecipe(new Recipe());
-        cocktail.getRecipe().setCreator(user);
+        Recipe recipe = new Recipe();
+        recipe.setCocktail(cocktail);
+        recipe.setAuthor(user);
 
         model.addAttribute("cocktail", cocktail);
+        model.addAttribute("recipe", recipe);
+
         return "cocktails/create";
     }
 
     @PostMapping(value = "create", params = {"addIngredient"})
-    public String addIngredient(Model model, Cocktail cocktail){
+    public String addIngredient(Model model, Cocktail cocktail, Recipe recipe){
         model.addAttribute("title", "Create New Cocktail Recipe");
-        if(null!=cocktail){
-            if(null==cocktail.getRecipe().getIngredients()){
-                cocktail.getRecipe().getIngredients().add(new Ingredient());
+        if(null!=recipe){
+            if(null==recipe.getIngredients()){
+                recipe.getIngredients().add(new Ingredient());
             } else {
-                cocktail.getRecipe().getIngredients().add(new Ingredient());
+                recipe.getIngredients().add(new Ingredient());
             }
         }
         return "cocktails/create";
     }
 
     @PostMapping(value = "create", params = {"removeIngredient"})
-    public String removeIngredient(Model model, Cocktail cocktail, HttpServletRequest request) {
+    public String removeIngredient(Model model, Recipe recipe, HttpServletRequest request) {
         model.addAttribute("title", "Create New Cocktail Recipe");
-        cocktail.getRecipe().getIngredients().remove(Integer.parseInt(request.getParameter("removeIngredient")));
+        recipe.getIngredients().remove(Integer.parseInt(request.getParameter("removeIngredient")));
         return "cocktails/create";
     }
 
     @PostMapping("create")
-    public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Cocktail cocktail, Errors errors, SessionStatus status){
-        List<Ingredient> ingredientList = cocktail.getRecipe().getIngredients();
+    public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Cocktail cocktail, @ModelAttribute @Valid Recipe recipe, Errors errors, SessionStatus status){
+        List<Ingredient> ingredientList = recipe.getIngredients();
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create New Cocktail Recipe");
             return "cocktails/create";
         }
         else {
-            //checking for duplicates; if found, replace
+            //Check if cocktail already exists; if so, add recipe to list. Otherwise, create new cocktail & add recipe
+            Optional<Cocktail> existingCocktail = cocktailRepository.findByNameIgnoreCase(cocktail.getName());
+            if (existingCocktail.isPresent()) {
+                cocktail = existingCocktail.get();
+                cocktail.getRecipes().add(recipe);
+                recipe.setCocktail(cocktail);
+            }
+            else {
+                cocktail.getRecipes().add(recipe);
+            }
+
+            //checking for duplicate ingredients; if found, replace with existing
             for (int i = 0; i < ingredientList.size(); i++) {
                 Ingredient ingredient = ingredientList.get(i);
                 Optional<Ingredient> existingIngredient = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
@@ -111,31 +124,43 @@ public class CocktailController {
                     ingredientList.add(i, existingIngredient.get());
                 }
             }
-            cocktailRepository.save(cocktail);
+
+            recipeRepository.save(recipe);
+
             status.setComplete();
-            return "redirect:recipe?cocktailId=" + cocktail.getId();
+            return "redirect:recipe?recipeId=" + recipe.getId();
         }
     }
 
     @GetMapping("recipe")
-    public String displayCocktailRecipe(@RequestParam Integer cocktailId, Model model) {
-        Optional<Cocktail> result = cocktailRepository.findById(cocktailId);
+    public String displayCocktailRecipe(@RequestParam Integer recipeId, Model model) {
+        Optional<Recipe> result = recipeRepository.findById(recipeId);
 
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid ID");
         } else {
-            Cocktail cocktail = result.get();
-            model.addAttribute("title", cocktail.getName() + " Recipe");
-            model.addAttribute("cocktail", cocktail);
-            model.addAttribute("ingredients", cocktail.getRecipe().getIngredients());
+            Recipe recipe = result.get();
+            model.addAttribute("title", recipe.getCocktail().getName() + " Recipe");
+            model.addAttribute("recipe", recipe);
+            model.addAttribute("ingredients", recipe.getIngredients());
         }
 
         return "cocktails/recipe";
     }
 
     @GetMapping("recipe/edit")
-    public String displayEditRecipeForm() {
+    public String displayEditForm(@RequestParam Integer cocktailId, Model model){
+        Optional<Cocktail> result = cocktailRepository.findById(cocktailId);
 
-        return "redirect:";
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid ID");
+            return "redirect:";
+        }
+        else {
+            Cocktail cocktail = result.get();
+            model.addAttribute("title", "Edit " + cocktail.getName() + "Recipe");
+            model.addAttribute("cocktail", cocktail);
+        }
+        return "recipe/edit";
     }
 }

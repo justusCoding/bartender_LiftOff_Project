@@ -23,7 +23,7 @@ public class User {
     @NotNull
     private String pwHash;
 
-    @OneToMany(mappedBy = "creator")
+    @OneToMany(mappedBy = "author")
     private final List<Recipe> createdRecipes = new ArrayList<>();
 
     public User(){}

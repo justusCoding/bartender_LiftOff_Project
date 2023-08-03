@@ -14,8 +14,10 @@
     </tr>
     </thead>
 
-    <tr th:each="cocktail: ${cocktails}">
-        <td><a th:href="'/cocktails/recipe?cocktailId=' + ${cocktail.id}" th:text="${cocktail.name}"></a></td>
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.cocktail.name}"></td>
+        <td th:text="${recipe.author.username}"></td>
+        <td th:text="${recipe.dateAdded}"></td>
     </tr>
 </table>
 
