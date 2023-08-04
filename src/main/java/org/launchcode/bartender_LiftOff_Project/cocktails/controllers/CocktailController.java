@@ -74,9 +74,10 @@ public class CocktailController {
         return "cocktails/create";
     }
 
-    @PostMapping(value = "create", params = {"addIngredient"})
-    public String addIngredient(Model model, Recipe recipe){
-        model.addAttribute("title", "Create New Cocktail Recipe");
+    @PostMapping(value = {"create", "edit"}, params = {"addIngredient"})
+    public String addIngredient(Model model, Recipe recipe, HttpServletRequest request){
+        String path = request.getServletPath();
+
         if(null!=recipe){
             if(null==recipe.getIngredients()){
                 recipe.getIngredients().add(new Ingredient());
@@ -84,14 +85,30 @@ public class CocktailController {
                 recipe.getIngredients().add(new Ingredient());
             }
         }
-        return "cocktails/create";
+
+        if (path.endsWith("edit")) {
+            model.addAttribute("title", "Edit " + recipe.getAuthor().getUsername() + "'s " + recipe.getCocktail().getName());
+            return "cocktails/edit";
+        }
+        else {
+            model.addAttribute("title", "Create New Cocktail Recipe");
+            return "cocktails/create";
+        }
     }
 
-    @PostMapping(value = "create", params = {"removeIngredient"})
+    @PostMapping(value = {"create", "edit"}, params = {"removeIngredient"})
     public String removeIngredient(Model model, Recipe recipe, HttpServletRequest request) {
-        model.addAttribute("title", "Create New Cocktail Recipe");
+        String path = request.getServletPath();
         recipe.getIngredients().remove(Integer.parseInt(request.getParameter("removeIngredient")));
-        return "cocktails/create";
+
+        if (path.endsWith("edit")) {
+            model.addAttribute("title", "Edit " + recipe.getAuthor().getUsername() + "'s " + recipe.getCocktail().getName());
+            return "cocktails/edit";
+        }
+        else {
+            model.addAttribute("title", "Create New Cocktail Recipe");
+            return "cocktails/create";
+        }
     }
 
     @PostMapping("create")
@@ -132,6 +149,8 @@ public class CocktailController {
 
         if (result.isEmpty()) {
             model.addAttribute("title", "Invalid ID");
+            model.addAttribute("errorMessage", "Recipe not found");
+            return "error";
         } else {
             Recipe recipe = result.get();
             model.addAttribute("title", recipe.getCocktail().getName() + " Recipe");
@@ -142,19 +161,19 @@ public class CocktailController {
         return "cocktails/recipe";
     }
 
-    @GetMapping("recipe/edit")
-    public String displayEditForm(@RequestParam Integer cocktailId, Model model){
-        Optional<Cocktail> result = cocktailRepository.findById(cocktailId);
+    @GetMapping("edit")
+    public String displayEditRecipeForm(@RequestParam Integer recipeId, Model model) {
+        Optional<Recipe> result = recipeRepository.findById(recipeId);
 
         if (result.isEmpty()) {
-            model.addAttribute("title", "Invalid ID");
-            return "redirect:";
+            model.addAttribute("errorMessage", "Recipe not found");
+            return "error";
         }
         else {
-            Cocktail cocktail = result.get();
-            model.addAttribute("title", "Edit " + cocktail.getName() + "Recipe");
-            model.addAttribute("cocktail", cocktail);
+            Recipe recipe = result.get();
+            model.addAttribute("title", "Edit " + recipe.getAuthor().getUsername() + "'s " + recipe.getCocktail().getName());
+            model.addAttribute("recipe", recipe);
         }
-        return "recipe/edit";
+        return "cocktails/edit";
     }
 }

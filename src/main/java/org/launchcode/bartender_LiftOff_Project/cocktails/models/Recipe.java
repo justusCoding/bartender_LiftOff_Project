@@ -26,6 +26,7 @@ public class Recipe extends AbstractEntity {
     private LocalDateTime dateAdded;
 
     @ManyToOne
+    @NotNull
     private User author;
 
     @ManyToMany(cascade = CascadeType.ALL)

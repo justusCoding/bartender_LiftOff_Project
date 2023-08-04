@@ -10,7 +10,7 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Recently Added Cocktails</th>
+        <th>Recently Added Cocktail Recipes</th>
     </tr>
     </thead>
 
@@ -29,8 +29,9 @@
     </tr>
     </thead>
 
-    <tr th:each="recipe: ${userRecipes}">
-        <td th:text="${recipe.getId()}"></td>
+    <tr th:each="recipe : ${userRecipes}">
+        <td th:text="${recipe.id}"></td>
+        <td><a class="btn btn-info" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
     </tr>
 </table>
 </div>
