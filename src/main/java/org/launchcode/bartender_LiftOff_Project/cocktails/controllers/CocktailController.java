@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes({"recipe", "cocktail"})
+@SessionAttributes("recipe")
 @RequestMapping("cocktails")
 public class CocktailController {
 
@@ -65,19 +65,17 @@ public class CocktailController {
         HttpSession session = request.getSession();
         User user = authenticationController.getUserFromSession(session);
 
-        Cocktail cocktail = new Cocktail();
         Recipe recipe = new Recipe();
-        recipe.setCocktail(cocktail);
+        recipe.setCocktail(new Cocktail());
         recipe.setAuthor(user);
 
-        model.addAttribute("cocktail", cocktail);
         model.addAttribute("recipe", recipe);
 
         return "cocktails/create";
     }
 
     @PostMapping(value = "create", params = {"addIngredient"})
-    public String addIngredient(Model model, Cocktail cocktail, Recipe recipe){
+    public String addIngredient(Model model, Recipe recipe){
         model.addAttribute("title", "Create New Cocktail Recipe");
         if(null!=recipe){
             if(null==recipe.getIngredients()){
@@ -97,22 +95,18 @@ public class CocktailController {
     }
 
     @PostMapping("create")
-    public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Cocktail cocktail, @ModelAttribute @Valid Recipe recipe, Errors errors, SessionStatus status){
+    public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Recipe recipe, Errors errors, SessionStatus status){
         List<Ingredient> ingredientList = recipe.getIngredients();
+
         if (errors.hasErrors()) {
             model.addAttribute("title", "Create New Cocktail Recipe");
             return "cocktails/create";
         }
         else {
             //Check if cocktail already exists; if so, add recipe to list. Otherwise, create new cocktail & add recipe
-            Optional<Cocktail> existingCocktail = cocktailRepository.findByNameIgnoreCase(cocktail.getName());
+            Optional<Cocktail> existingCocktail = cocktailRepository.findByNameIgnoreCase(recipe.getCocktail().getName());
             if (existingCocktail.isPresent()) {
-                cocktail = existingCocktail.get();
-                cocktail.getRecipes().add(recipe);
-                recipe.setCocktail(cocktail);
-            }
-            else {
-                cocktail.getRecipes().add(recipe);
+                recipe.setCocktail(existingCocktail.get());
             }
 
             //checking for duplicate ingredients; if found, replace with existing

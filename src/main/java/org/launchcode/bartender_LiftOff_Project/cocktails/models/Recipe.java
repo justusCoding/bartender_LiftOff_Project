@@ -19,6 +19,7 @@ public class Recipe extends AbstractEntity {
     private String instructions;
 
     @ManyToOne(cascade=CascadeType.ALL)
+    @Valid
     private Cocktail cocktail;
 
     @CreationTimestamp

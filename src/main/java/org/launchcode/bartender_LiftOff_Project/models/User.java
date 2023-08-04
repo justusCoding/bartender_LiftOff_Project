@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class User {
     private String pwHash;
 
     @OneToMany(mappedBy = "author")
-    private final List<Recipe> createdRecipes = new ArrayList<>();
+    private final List<@Valid Recipe> createdRecipes = new ArrayList<>();
 
     public User(){}
 

@@ -6,9 +6,9 @@
 <form  action="#" th:action="@{create}" th:object="${recipe}" method="post">
     <div class="form-group" th:align="left">
         <label for="cocktail-name">Cocktail Name
-            <input type="text" id="cocktail-name" th:field="${cocktail.name}" class="form-control">
+            <input type="text" id="cocktail-name" th:field="*{cocktail.name}" class="form-control">
         </label>
-        <p class="error" th:errors="${cocktail.name}"></p>
+        <p class="error" th:errors="*{cocktail.name}"></p>
     </div>
 
     <div class="form-group" th:align="left">

@@ -21,8 +21,7 @@ public class Cocktail extends AbstractEntity {
     private String name;
 
     @OneToMany(mappedBy = "cocktail")
-    @Valid
-    private final List<Recipe> recipes = new ArrayList<>();
+    private final List<@Valid Recipe> recipes = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime dateAdded;
