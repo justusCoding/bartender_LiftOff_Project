@@ -1,0 +1,15 @@
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.all-errors {
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+#recipe-instructions {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+<header th:replace="fragments :: header"></header>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Required Ingredients</th>
+    </tr>
+    </thead>
+
+    <tr th:each="ingredient: ${ingredients}">
+        <td><a th:href="'/cocktails/search?search-term=' + ${ingredient.name}" th:text="${ingredient.name}"></a></td>
+    </tr>
+</table>
+
+<p id="recipe-instructions" th:text="${cocktail.recipe.instructions}"></p>
+
+</body>
+</html>
