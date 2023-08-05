@@ -2,16 +2,16 @@ package org.launchcode.bartender_LiftOff_Project.cocktails.models;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Cocktail extends AbstractEntity {
@@ -20,36 +20,27 @@ public class Cocktail extends AbstractEntity {
     @NotBlank(message = "Cocktail name is required")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @Valid
-    private Recipe recipe;
+    @OneToMany(mappedBy = "cocktail")
+    private final List<@Valid Recipe> recipes = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime dateAdded;
 
-    // CONSTRUCTORS
-    public Cocktail(String name, Recipe recipe) {
-        this.name = name;
-        this.recipe = recipe;
-    }
-
     public Cocktail() {}
 
-    // GETTERS
     public String getName() {
         return name;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
-// SETTERS
+    public LocalDateTime getDateAdded() {
+        return dateAdded;
+    }
+
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
     }
 }
