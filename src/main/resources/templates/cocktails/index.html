@@ -22,18 +22,17 @@
 </table>
 
 <div th:if="${userRecipes}">
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Your Recipes</th>
-    </tr>
-    </thead>
-
-    <tr th:each="recipe : ${userRecipes}">
-        <td th:text="${recipe.id}"></td>
-        <td><a class="btn btn-info" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
-    </tr>
-</table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Your Recipes</th>
+        </tr>
+        </thead>
+        <tr th:each="recipe : ${userRecipes}">
+            <td th:text="${recipe.id}"></td>
+            <td><a class="btn btn-info" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
+        </tr>
+    </table>
 </div>
 
 <p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>

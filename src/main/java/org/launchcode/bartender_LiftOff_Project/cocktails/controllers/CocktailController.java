@@ -1,6 +1,8 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.controllers;
 
 import net.bytebuddy.asm.Advice;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.CocktailRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.RecipeRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.IngredientRepository;
@@ -11,6 +13,7 @@ import org.launchcode.bartender_LiftOff_Project.controllers.AuthenticationContro
 import org.launchcode.bartender_LiftOff_Project.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +61,7 @@ public class CocktailController {
 
         return "cocktails/index";
     }
+
 
     @GetMapping("create")
     public String displayCreateCocktailForm(Model model, HttpServletRequest request) {
@@ -111,13 +115,21 @@ public class CocktailController {
         }
     }
 
-    @PostMapping("create")
-    public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Recipe recipe, Errors errors, SessionStatus status){
+    @Transactional
+    @PostMapping({"create", "edit"})
+    public String processCreateCocktailForm(Model model, @ModelAttribute @Valid Recipe recipe, Errors errors, HttpServletRequest request, SessionStatus status){
         List<Ingredient> ingredientList = recipe.getIngredients();
+        String path = request.getServletPath();
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Create New Cocktail Recipe");
-            return "cocktails/create";
+            if (path.endsWith("create")) {
+                model.addAttribute("title", "Create New Cocktail Recipe");
+                return "cocktails/create";
+            }
+            else {
+                model.addAttribute("title", "Edit " + recipe.getAuthor().getUsername() + "'s " + recipe.getCocktail().getName());
+                return "cocktails/edit";
+            }
         }
         else {
             //Check if cocktail already exists; if so, add recipe to list. Otherwise, create new cocktail & add recipe
@@ -126,13 +138,25 @@ public class CocktailController {
                 recipe.setCocktail(existingCocktail.get());
             }
 
-            //checking for duplicate ingredients; if found, replace with existing
-            for (int i = 0; i < ingredientList.size(); i++) {
+                for (int i = 0; i < ingredientList.size(); i++) {
+
                 Ingredient ingredient = ingredientList.get(i);
-                Optional<Ingredient> existingIngredient = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
-                if (existingIngredient.isPresent()) {
+
+                //TODO: this functionality is pretty hacky; should refactor to be cleaner & more efficient
+                //don't edit an existing ingredient; if it's being renamed, swap with a new one; if it's not being used by other recipes, delete the old one
+                Optional<Ingredient> oldIngredient = ingredientRepository.findById(ingredient.getId());
+                if (oldIngredient.isPresent()) {
+                    if (!ingredient.getName().equals(oldIngredient.get().getName())) {
+                        ingredientList.add(i, new Ingredient(ingredient.getName()));
+                        ingredientList.remove(oldIngredient.get());
+                    }
+                }
+
+                //checking for duplicate ingredient names; if found, replace with existing
+                Optional<Ingredient> existingIngredientName = ingredientRepository.findByNameIgnoreCase(ingredient.getName());
+                if (existingIngredientName.isPresent()) {
                     ingredientList.remove(ingredient);
-                    ingredientList.add(i, existingIngredient.get());
+                    ingredientList.add(i, existingIngredientName.get());
                 }
             }
 
@@ -161,6 +185,7 @@ public class CocktailController {
         return "cocktails/recipe";
     }
 
+    @Transactional
     @GetMapping("edit")
     public String displayEditRecipeForm(@RequestParam Integer recipeId, Model model) {
         Optional<Recipe> result = recipeRepository.findById(recipeId);
@@ -176,4 +201,31 @@ public class CocktailController {
         }
         return "cocktails/edit";
     }
+
+    @Transactional
+    @PostMapping(value = "edit", params = {"deleteRecipe"})
+    public String deleteRecipe(Model model, Recipe recipe, SessionStatus status) {
+
+        Optional<Cocktail> cocktailResult = cocktailRepository.findByNameIgnoreCase(recipe.getCocktail().getName());
+        Optional<Recipe> recipeResult = recipeRepository.findById(recipe.getId());
+
+        if (recipeResult.isPresent()) {
+            Recipe persistantRecipe = recipeResult.get();
+            for (Iterator<Ingredient> itr = persistantRecipe.getIngredients().iterator(); itr.hasNext();) {
+                itr.next();
+                itr.remove();
+            }
+        }
+        if (cocktailResult.isPresent()) {
+            Cocktail cocktail = cocktailResult.get();
+            cocktail.getRecipes().remove(recipe);
+        }
+
+        recipeRepository.deleteById(recipe.getId());
+        status.setComplete();
+
+        return "redirect:/cocktails";
+    }
+
+
 }
