@@ -9,7 +9,9 @@ a {
      text-decoration: none;
      font-weight: bold;
 }
-
+.cocktails {
+    color:black
+}
 
 body {
   background-image: url("photos/background");
@@ -17,8 +19,8 @@ body {
   background-repeat:no-repeat;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   body{
-  background-size: 1000px;
+  background-size: 1600px;
  }
 }
