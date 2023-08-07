@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <head th:replace="fragments :: head"></head>
 <body class="container">
-
+<link rel="stylesheet" th:href="@{/main.css}" />
 <header th:replace="fragments :: header"></header>
 
 <div th:replace="fragments :: search-box"></div>
@@ -19,7 +21,6 @@
         <th>Date Added</th>
     </tr>
     </thead>
-
     <tr th:each="recipe : ${recipes}">
         <td th:text="${recipe.cocktail.name}"></td>
         <td th:text="${recipe.author.username}"></td>
