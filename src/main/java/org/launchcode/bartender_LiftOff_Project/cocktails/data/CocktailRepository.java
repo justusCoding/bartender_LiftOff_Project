@@ -18,14 +18,7 @@ import java.util.Optional;
 
 @Repository
 public interface CocktailRepository extends JpaRepository<Cocktail, Integer> {
-//    List<Cocktail> findByNameContainingIgnoreCase(String name);
-//    @Query("SELECT c FROM Cocktail c JOIN c.recipe r JOIN r.ingredients i WHERE i.name = :ingredientName")
-//    List<Cocktail> findCocktailsByIngredientName(@Param("ingredientName") String ingredientName);
 
-//    @Query("SELECT DISTINCT c FROM Cocktail c LEFT JOIN c.recipe r LEFT JOIN r.ingredients i WHERE c.name LIKE %:searchTerm% OR i.name LIKE %:searchTerm%")
-//    List<Cocktail> searchCocktails(@Param("searchTerm") String searchTerm);
     Optional<Cocktail> findByNameIgnoreCase(String name);
 
-    @Query("SELECT c FROM Cocktail c WHERE c.dateAdded >= :startDate ORDER BY c.dateAdded DESC")
-    List<Cocktail> findCocktailsCreatedAfterOrderByDateAddedDesc(@Param("startDate") LocalDateTime startDate);
 }
