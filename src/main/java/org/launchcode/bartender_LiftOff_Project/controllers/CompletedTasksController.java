@@ -40,13 +40,13 @@ public class CompletedTasksController {
 
     @GetMapping("list")
     public String displayListCompletedTasksPage(Model model) {
-        model.addAttribute("completedtasks", completedTasksRepository.findAll());
+        model.addAttribute("completedTasksList", completedTasksRepository.findAll());
         return "tasks/list-completed";
     }
 
     @GetMapping("delete")
     public String displayDeleteCompletedTasksPage(Model model) {
-        model.addAttribute("completedtasks", completedTasksRepository.findAll());
+        model.addAttribute("completedTasksList", completedTasksRepository.findAll());
         return "tasks/delete-completed";
     }
 

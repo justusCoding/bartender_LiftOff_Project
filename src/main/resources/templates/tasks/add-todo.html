@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header>Add TODO Task</header>
+    <header>Add To Do Task</header>
     </br>
     <form action="/tasks/todo/add" method="POST">
         <div>
@@ -32,11 +32,12 @@
                 <input type="date" id="desiredCompletionDate" name="desiredCompletionDate">
             </label>
         </div>
-        <button type="submit">Add New TODO Task</button>
+        <button type="submit">Add New To Do Task</button>
     </form>
     </br>
-    <p><a href="/tasks/todo/delete">Delete TODO Task</a></p>
-    <p><a href="/tasks/todo/list">TODO Task List</a></p>
+    <p><a href="/tasks/todo/delete">Delete To Do Task</a></p>
+    <p><a href="/tasks/todo/list">To Do Task List</a></p>
+    <p><a href="/tasks">Task Manager</a></p>
     <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>

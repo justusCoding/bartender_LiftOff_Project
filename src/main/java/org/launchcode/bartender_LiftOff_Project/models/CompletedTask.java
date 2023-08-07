@@ -13,6 +13,7 @@ public class CompletedTask {
     @GeneratedValue
     private int completedTaskId;
     @NotBlank(message = "Name is required.")
+    @Size(min = 0, max = 20, message = "Task must be 20 characters or less")
     private String completedTaskName;
     @Size(min = 0, max = 100, message = "Notes must be 100 characters or less.")
     private String completedTaskNotes;

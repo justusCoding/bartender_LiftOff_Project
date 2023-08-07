@@ -20,7 +20,7 @@
 <body>
     <h2>Completed Tasks</h2>
     </br>
-        <p th:unless="${completedtasks} and ${completedtasks.size()}">
+        <p th:unless="${completedTasksList} and ${completedTasksList.size()}">
             You have not added any completed tasks yet!
         </p>
             <table id="completed-table" class="table table-sortable">
@@ -51,7 +51,7 @@
                         </select>
                     </th>
                 </tr>
-                <tr th:each="task : ${completedtasks}">
+                <tr th:each="task : ${completedTasksList}">
                     <td th:text="${task.completedTaskType.displayName}" />
                     <td th:text="${task.completedTaskName}" />
                     <td th:text="${task.completedTaskNotes}" />
@@ -82,7 +82,7 @@
           }
         }
 
-          function sortByEmployeeCompletedBy() {
+        function sortByEmployeeCompletedBy() {
           let input, filter, table, tr, td, i;
           input = document.getElementById("employee-list");
           filter = input.value.toUpperCase();

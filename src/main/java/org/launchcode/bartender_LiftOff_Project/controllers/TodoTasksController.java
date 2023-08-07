@@ -38,13 +38,13 @@ public class TodoTasksController {
 
     @GetMapping("list")
     public String displayListToDoTasksPage(Model model) {
-        model.addAttribute("todotasks", todoTasksRepository.findAll());
+        model.addAttribute("todoTasksList", todoTasksRepository.findAll());
         return "tasks/list-todo";
     }
 
     @GetMapping("delete")
     public String displayDeleteToDoTasksPage(Model model) {
-        model.addAttribute("todotasks", todoTasksRepository.findAll());
+        model.addAttribute("todoTasksList", todoTasksRepository.findAll());
         return "tasks/delete-todo";
     }
 

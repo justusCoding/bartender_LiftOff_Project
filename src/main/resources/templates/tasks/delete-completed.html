@@ -4,11 +4,11 @@
 <body>
     <header>Remove a Completed Task</header>
     </br>
-        <p th:unless="${completedtasks} and ${completedtasks.size()}">
-            You have not added any TODO tasks yet!
+        <p th:unless="${completedTasksList} and ${completedTasksList.size()}">
+            You have not added any completed tasks yet!
         </p>
         <form action="/tasks/completed/delete" method="POST">
-            <th:block th:each="task : ${completedtasks}">
+            <th:block th:each="task : ${completedTasksList}">
                 <label>
                     <input type="checkbox" name="completedTaskIds" th:value="${task.completedTaskId}" />
                     <span th:text="${task.completedTaskType.displayName + ' | ' + task.completedTaskName + ' | ' + task.completedTaskNotes}"></span>
@@ -18,6 +18,7 @@
         </form>
         <p><a href="/tasks/completed/add">Add Completed Task</a></p>
         <p><a href="/tasks/completed/list">Completed Task List</a></p>
-        <div th:replace="~{fragments :: home}"></div>
+        <p><a href="/tasks">Task Manager</a></p>
+    <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>

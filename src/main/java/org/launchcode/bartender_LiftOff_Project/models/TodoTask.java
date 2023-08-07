@@ -13,6 +13,7 @@ public class TodoTask {
     @GeneratedValue
     private int todoTaskId;
     @NotBlank(message = "Name is required.")
+    @Size(min = 0, max = 20, message = "Task must be 20 characters or less")
     private String todoTaskName;
     @Size(min = 0, max = 100, message = "Notes must be 100 characters or less.")
     private String todoTaskNotes;
