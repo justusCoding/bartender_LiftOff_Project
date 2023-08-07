@@ -6,7 +6,6 @@ public enum Employees {
     ANDREW("Andrew"),
     KATHERINE("Katherine"),
     JUSTUS("Justus"),
-    AMR("Amr"),
     OTHER("Other");
 
     private final String displayName;
