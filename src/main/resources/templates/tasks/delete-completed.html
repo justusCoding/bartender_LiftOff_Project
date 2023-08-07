@@ -11,7 +11,7 @@
             <th:block th:each="task : ${completedTasksList}">
                 <label>
                     <input type="checkbox" name="completedTaskIds" th:value="${task.completedTaskId}" />
-                    <span th:text="${task.completedTaskType.displayName + ' | ' + task.completedTaskName + ' | ' + task.completedTaskNotes}"></span>
+                    <span th:text="${task.completedTaskType.taskTypeDisplayName + ' | ' + task.completedTaskName + ' | ' + task.completedTaskNotes}"></span>
                 </label><br/>
             </th:block>
             <button type="submit">Delete Completed Task</button>

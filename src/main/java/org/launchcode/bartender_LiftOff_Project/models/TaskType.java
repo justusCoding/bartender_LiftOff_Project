@@ -8,13 +8,13 @@ public enum TaskType {
     ORDERING("Ordering"),
     MISCELLANEOUS("Miscellaneous");
 
-    private final String displayName;
+    private final String taskTypeDisplayName;
 
-    TaskType(String displayName) {
-        this.displayName = displayName;
+    TaskType(String taskTypeDisplayName) {
+        this.taskTypeDisplayName = taskTypeDisplayName;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getTaskTypeDisplayName() {
+        return taskTypeDisplayName;
     }
 }

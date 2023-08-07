@@ -11,7 +11,7 @@
             <th:block th:each="task : ${todoTasksList}">
                 <label>
                     <input type="checkbox" name="todoTaskIds" th:value="${task.todoTaskId}" />
-                    <span th:text="${task.todoTaskType.displayName + ' | ' + task.todoTaskName + ' | ' + task.todoTaskNotes}"></span>
+                    <span th:text="${task.todoTaskType.taskTypeDisplayName + ' | ' + task.todoTaskName + ' | ' + task.todoTaskNotes}"></span>
                 </label><br/>
             </th:block>
             <button type="submit">Delete To Do Task</button>

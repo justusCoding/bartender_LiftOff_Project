@@ -27,7 +27,7 @@
                 <tr>
                     <th>Type
                         <select id="completed-type-list" onchange="sortByCompletedTaskType()" class='form-control'>
-                            <option>All</option>
+                            <option></option>
                             <option>Cleaning</option>
                             <option>Stocking</option>
                             <option>Rotating</option>
@@ -40,19 +40,18 @@
                     <th>Date Completed</th>
                     <th>Employee Completed By
                         <select id="employee-list" onchange="sortByEmployeeCompletedBy()" class='form-control'>
-                            <option>All</option>
+                            <option></option>
                             <option>Ali</option>
                             <option>Aurora</option>
                             <option>Andrew</option>
                             <option>Katherine</option>
                             <option>Justus</option>
-                            <option>Amr</option>
                             <option>Other</option>
                         </select>
                     </th>
                 </tr>
                 <tr th:each="task : ${completedTasksList}">
-                    <td th:text="${task.completedTaskType.displayName}" />
+                    <td th:text="${task.completedTaskType.taskTypeDisplayName}" />
                     <td th:text="${task.completedTaskName}" />
                     <td th:text="${task.completedTaskNotes}" />
                     <td th:text="${task.dateCompleted}" />
