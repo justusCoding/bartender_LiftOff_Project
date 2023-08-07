@@ -1,23 +1,29 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.models;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.annotations.CreationTimestamp;
 import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
 import org.launchcode.bartender_LiftOff_Project.models.User;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Recipe extends AbstractEntity {
 
-    @Size(max = 500, message = "Instructions must be less than 500 characters")
+    @Size(min = 5, max = 500, message = "Instructions must be less than 500 characters")
     private String instructions;
 
     @ManyToOne(cascade=CascadeType.ALL)
@@ -33,8 +39,12 @@ public class Recipe extends AbstractEntity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @NotNull
-    private List<@Valid Ingredient> ingredients = new ArrayList<>();
+    private final List<@Valid Ingredient> ingredients = new ArrayList<>();
 
+    @ElementCollection
+    private final List<Double> ingredientQuantities = new ArrayList<>();
+    @ElementCollection
+    private final List<String> ingredientMeasurements = new ArrayList<>();
 
     public Recipe(@Size(max = 500, message = "Instructions must be less than 500 characters") String instructions) {
        this.instructions = instructions;
@@ -52,14 +62,6 @@ public class Recipe extends AbstractEntity {
 
     public List<Ingredient> getIngredients() {
         return ingredients;
-    }
-
-    public void addIngredient(Ingredient ingredient) {
-        this.ingredients.add(ingredient);
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
     }
 
     public User getAuthor() {
@@ -88,5 +90,13 @@ public class Recipe extends AbstractEntity {
 
     public String getFormattedDateAdded() {
        return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(this.dateAdded);
+    }
+
+    public List<Double> getIngredientQuantities() {
+        return ingredientQuantities;
+    }
+
+    public List<String> getIngredientMeasurements() {
+        return ingredientMeasurements;
     }
 }

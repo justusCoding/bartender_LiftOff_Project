@@ -6,7 +6,7 @@
 <form  action="#" th:action="@{create}" th:object="${recipe}" method="post">
     <div class="form-group" th:align="left">
         <label for="cocktail-name">Cocktail Name
-            <input type="text" id="cocktail-name" th:field="*{cocktail.name}" class="form-control">
+            <input type="text" id="cocktail-name" th:field="*{cocktail.name}" placeholder="e.g. 'Margarita'" class="form-control">
         </label>
         <p class="error" th:errors="*{cocktail.name}"></p>
     </div>
@@ -17,8 +17,13 @@
         <div th:if="*{ingredients}">
             <table>
                 <tbody>
+                <div th:if="*{ingredients.size() > 0}">
+                <tr><th th:text="Quantity"></th><th th:text="Measurement"></th><th th:text="Ingredient"></th></tr>
+                </div>
                 <tr th:each="ingredient, stat: *{ingredients}">
-                    <td><input type="text" placeholder="Ingredient name" th:field="*{ingredients[__${stat.index}__].name}"></td>
+                    <td><input type="text" placeholder="Quantity"th:field="*{ingredientQuantities[__${stat.index}__]}"></td>
+                    <td><input type="text" placeholder="e.g. 'oz', cl, etc.'" th:field="*{ingredientMeasurements[__${stat.index}__]}"></td>
+                    <td><input type="text" placeholder="e.g. 'Tequila', 'Orgeat'" th:field="*{ingredients[__${stat.index}__].name}"></td>
                     <td><button class="btn btn-info" type="submit" name="removeIngredient" id="removeIngredient" th:value="${stat.index}">Remove</button></td>
                 </tr>
                 </tbody>
