@@ -13,7 +13,7 @@
     </thead>
 
     <tr th:each="result : ${results}">
-        <td><a th:href="'/cocktails/recipe?cocktailId=' + ${result.id}" th:text="${result.name}"></a></td>
+        <td><a th:href="'/cocktails/recipe?cocktailId=' + ${result.id}" th:text="${result.cocktail.name}"></a></td>
     </tr>
 
 </table>

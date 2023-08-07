@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<header th:replace="fragments :: header"></header>
+
+<form action = "/pay/totalPayResults" method="POST">
+    <div>
+        <label>Date:</label><br>
+        <input type="date" th:field="${pay.dateWorked}"/>
+    </div>
+    <p th:errors="${pay.dateWorked}"></p>
+
+    <div>
+        <label>Number of Hours Worked:</label><br>
+        <input th:field="${pay.hoursWorked}">
+    </div>
+    <p th:errors="${pay.hoursWorked}"></p>
+
+    <div> Shift Worked:
+        <br>
+        <input type="radio" name="shiftWorked" value = "AM">
+        <label>AM</label><br>
+
+        <input type="radio" name="shiftWorked" value = "PM">
+        <label>PM</label><br>
+    </div>
+    <p th:errors="${pay.shiftWorked}"></p><br>
+
+    <div>
+        <label>Hourly Rate:</label><br>
+        <input th:field="${pay.hourlyRate}">
+    </div>
+    <p th:errors="${pay.hourlyRate}"></p><br>
+
+    <div>
+        <label>Credit Card Tips:</label><br>
+        <input th:field="${pay.creditCardTips}">
+    </div>
+    <p th:errors="${pay.creditCardTips}"></p><br>
+
+    <div>
+        <label>Cash Tips:</label><br>
+        <input th:field="${pay.cashTips}">
+    </div>
+    <p th:errors="${pay.cashTips}"></p><br>
+
+    <div>
+        <label>Tax Rate:</label><br>
+        <input th:field="${pay.taxRate}">
+    </div><br>
+    <p th:errors="${pay.taxRate}"></p><br>
+
+    <div><input type="submit" value="Calculate Take-Home Pay"></div>
+
+</form>
+</body>
+</html>

@@ -12,16 +12,42 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Recently Added Cocktails</th>
+        <th>Recently Added Cocktail Recipes</th>
+    </tr>
+    <tr>
+    <tr>
+        <th>Cocktail</th>
+        <th>Author</th>
+        <th>Date Added</th>
     </tr>
     </thead>
-
-    <tr th:each="cocktail: ${cocktails}">
-        <td><a class="cocktails" th:href="'/cocktails/recipe?cocktailId=' + ${cocktail.id}" th:text="${cocktail.name}"></a></td>
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.cocktail.name}"></td>
+        <td th:text="${recipe.author.username}"></td>
+        <td th:text="${recipe.getFormattedDateAdded()}"></td>
     </tr>
 </table>
 
-<p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>
+<div th:if="${userRecipes}">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Your Recipes</th>
+        </tr>
+        <tr>
+            <th>Cocktail</th>
+            <th>Date Added</th>
+        </tr>
+        </thead>
+        <tr th:each="recipe : ${userRecipes}">
+            <td><a th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
+            <td th:text="${recipe.getFormattedDateAdded()}"></td>
+            <td><a class="btn btn-info" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
+        </tr>
+    </table>
 
+    <p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>
+
+</div>
 </body>
 </html>

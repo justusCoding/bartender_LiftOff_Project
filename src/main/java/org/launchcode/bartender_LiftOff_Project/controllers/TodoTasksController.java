@@ -1,59 +1,58 @@
 package org.launchcode.bartender_LiftOff_Project.controllers;
 
 import org.launchcode.bartender_LiftOff_Project.data.TodoTasksRepository;
-import org.launchcode.bartender_LiftOff_Project.models.TodoTasks;
+import org.launchcode.bartender_LiftOff_Project.models.TodoTask;
 import org.launchcode.bartender_LiftOff_Project.models.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @Controller
+@RequestMapping("tasks/todo")
 public class TodoTasksController {
     @Autowired
     private TodoTasksRepository todoTasksRepository;
 
-    @GetMapping("tasks/add-todo")
-    public String displayAddTODOTasksPage(Model model) {
-        model.addAttribute(new TodoTasks());
+    @GetMapping("add")
+    public String displayAddTodoTasksPage(Model model) {
+        model.addAttribute(new TodoTask());
         model.addAttribute("todoTaskTypes", TaskType.values());
         return "tasks/add-todo";
     }
 
-    @PostMapping("tasks/add-todo")
-    public String processAddTODOTasksPage(@ModelAttribute @Valid TodoTasks todoTasks, Errors errors, Model model) {
+    @PostMapping("add")
+    public String processAddToDoTasksPage(@ModelAttribute @Valid TodoTask todoTask, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("todoTasks", todoTasks);
+            model.addAttribute("todoTasks", todoTask);
             model.addAttribute("errors", errors);
+            return "tasks/add-todo";
         } else {
-            todoTasksRepository.save(todoTasks);
+            todoTasksRepository.save(todoTask);
         }
-        return "tasks/add-todo";
+        return "redirect:list";
     }
 
-    @GetMapping("tasks/list-todo")
-    public String displayTODOTasksPage(Model model) {
-        model.addAttribute("todotasks", todoTasksRepository.findAll());
+    @GetMapping("list")
+    public String displayListToDoTasksPage(Model model) {
+        model.addAttribute("todoTasksList", todoTasksRepository.findAll());
         return "tasks/list-todo";
     }
 
-    @GetMapping("tasks/delete-todo")
-    public String displayDeleteTODOTaskPage(Model model) {
-        model.addAttribute("todotasks", todoTasksRepository.findAll());
+    @GetMapping("delete")
+    public String displayDeleteToDoTasksPage(Model model) {
+        model.addAttribute("todoTasksList", todoTasksRepository.findAll());
         return "tasks/delete-todo";
     }
 
-    @PostMapping("tasks/delete-todo")
-    public String processDeleteTODOTaskPage(@RequestParam(required = false) int[] todoTaskIds) {
+    @PostMapping("delete")
+    public String processDeleteToDoTasksPage(@RequestParam(required = false) int[] todoTaskIds) {
         for (int id : todoTaskIds) {
             todoTasksRepository.deleteById(id);
         }
-        return "tasks/list-todo";
+        return "redirect:list";
     }
 }

@@ -2,41 +2,42 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header>Add TODO Task</header>
+    <header>Add To Do Task</header>
     </br>
-    <form action="/tasks/add-todo" method="POST">
+    <form action="/tasks/todo/add" method="POST">
         <div>
             <label>Type:
-                <select th:field="${todoTasks.todoTaskType}">
+                <select th:field="${todoTask.todoTaskType}">
                     <option th:each="type : ${todoTaskTypes}"
                             th:value="${type}"
-                            th:text="${type.displayName}"
+                            th:text="${type.taskTypeDisplayName}"
                     ></option>
                 </select>
             </label>
         </div>
         <div>
-            <label>Name:
-                <input th:field="${todoTasks.todoTaskName}" />
+            <label>Task:
+                <input th:field="${todoTask.todoTaskName}" />
             </label>
-            <p class="error" th:errors="${todoTasks.todoTaskName}"></p>
+            <p class="error" th:errors="${todoTask.todoTaskName}"></p>
         </div>
         <div>
             <label>Notes:
-                <input th:field="${todoTasks.todoTaskNotes}" />
+                <textarea th:field="${todoTask.todoTaskNotes}" />
             </label>
-            <p class="error" th:errors="${todoTasks.todoTaskNotes}"></p>
+            <p class="error" th:errors="${todoTask.todoTaskNotes}"></p>
         </div>
         <div>
             <label>Desired Completion Date:
                 <input type="date" id="desiredCompletionDate" name="desiredCompletionDate">
             </label>
         </div>
-        <button type="submit">Add New TODO Task</button>
+        <button type="submit">Add New To Do Task</button>
     </form>
     </br>
-    <p><a href="/tasks/delete-todo">Delete TODO Task</a></p>
-    <p><a href="/tasks/list-todo">TODO Task List</a></p>
+    <p><a href="/tasks/todo/delete">Delete To Do Task</a></p>
+    <p><a href="/tasks/todo/list">To Do Task List</a></p>
+    <p><a href="/tasks">Task Manager</a></p>
     <div th:replace="~{fragments :: home}"></div>
 </body>
 </html>
