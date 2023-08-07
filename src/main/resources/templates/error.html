@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:input="http://www.w3.org/1999/html">
+<head th:replace="fragments :: head"></head>
+<body>
+<header th:replace="fragments :: header"></header>
+<h1 class="error">Something went wrong!</h1>
+<p class="error" th:text="${errorMessage}"></p>
+<a th:href="@{/}">Back to MixMuse Homepage</a>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package org.launchcode.bartender_LiftOff_Project.cocktails.models;
+package org.launchcode.bartender_LiftOff_Project.models;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

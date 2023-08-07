@@ -2,6 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body class="container">
+<link rel="stylesheet" th:href="@{/main.css}" />
+<header th:replace="fragments :: header"></header>
+
+<h1>Home</h1>
+<script th:src="@{/actions.js}"></script>
+<header th:replace="fragments :: header"></header>
 
 <h1>Bartender Assistant App Liftoff Project</h1>
 
