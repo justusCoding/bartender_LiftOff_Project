@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,5 +84,9 @@ public class Recipe extends AbstractEntity {
 
     public void setDateAdded(LocalDateTime dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+    public String getFormattedDateAdded() {
+       return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(this.dateAdded);
     }
 }

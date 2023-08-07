@@ -12,12 +12,18 @@
     <tr>
         <th>Recently Added Cocktail Recipes</th>
     </tr>
+    <tr>
+    <tr>
+        <th>Cocktail</th>
+        <th>Author</th>
+        <th>Date Added</th>
+    </tr>
     </thead>
 
     <tr th:each="recipe : ${recipes}">
         <td th:text="${recipe.cocktail.name}"></td>
         <td th:text="${recipe.author.username}"></td>
-        <td th:text="${recipe.dateAdded}"></td>
+        <td th:text="${recipe.getFormattedDateAdded()}"></td>
     </tr>
 </table>
 
@@ -27,15 +33,20 @@
         <tr>
             <th>Your Recipes</th>
         </tr>
+        <tr>
+            <th>Cocktail</th>
+            <th>Date Added</th>
+        </tr>
         </thead>
         <tr th:each="recipe : ${userRecipes}">
-            <td th:text="${recipe.id}"></td>
+            <td><a th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
+            <td th:text="${recipe.getFormattedDateAdded()}"></td>
             <td><a class="btn btn-info" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
         </tr>
     </table>
+
+    <p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>
+
 </div>
-
-<p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>
-
 </body>
 </html>

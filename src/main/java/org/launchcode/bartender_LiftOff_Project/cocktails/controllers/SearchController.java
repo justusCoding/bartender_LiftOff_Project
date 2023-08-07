@@ -1,7 +1,9 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.controllers;
 
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.CocktailRepository;
+import org.launchcode.bartender_LiftOff_Project.cocktails.data.RecipeRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Cocktail;
+import org.launchcode.bartender_LiftOff_Project.cocktails.models.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,17 +24,16 @@ import java.util.List;
 public class SearchController {
 
     @Autowired
-    private CocktailRepository cocktailRepository;
+    private RecipeRepository recipeRepository;
 
-//    @GetMapping("")
-//    public String cocktailSearch(@NotBlank @RequestParam("search-term") String searchTerm, Model model) {
-//        // TODO: FIX
-//
-//        model.addAttribute("title", "Search");
-//        model.addAttribute("search-term", searchTerm);
-////        List<Cocktail> searchResults = cocktailRepository.searchCocktails(searchTerm);
-//
-//        model.addAttribute("results", searchResults);
-//        return "cocktails/search";
-//    }
+    @GetMapping("")
+    public String cocktailSearch(@NotBlank @RequestParam("search-term") String searchTerm, Model model) {
+
+        model.addAttribute("title", "Search");
+        model.addAttribute("search-term", searchTerm);
+        List<Recipe> searchResults = recipeRepository.findByCocktailNameOrIngredientNameContaining(searchTerm);
+
+        model.addAttribute("results", searchResults);
+        return "cocktails/search";
+    }
 }
