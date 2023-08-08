@@ -24,10 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @SessionAttributes("recipe")
@@ -62,7 +59,6 @@ public class CocktailController {
         return "cocktails/index";
     }
 
-
     @GetMapping("create")
     public String displayCreateCocktailForm(Model model, HttpServletRequest request) {
         model.addAttribute("title", "Create New Cocktail Recipe");
@@ -72,7 +68,6 @@ public class CocktailController {
         Recipe recipe = new Recipe();
         recipe.setCocktail(new Cocktail());
         recipe.setAuthor(user);
-
         model.addAttribute("recipe", recipe);
 
         return "cocktails/create";
@@ -84,8 +79,12 @@ public class CocktailController {
 
         if(null!=recipe){
             if(null==recipe.getIngredients()){
+                recipe.getIngredientQuantities().add(0.0);
+                recipe.getIngredientMeasurements().add("");
                 recipe.getIngredients().add(new Ingredient());
             } else {
+                recipe.getIngredientQuantities().add(0.0);
+                recipe.getIngredientMeasurements().add("");
                 recipe.getIngredients().add(new Ingredient());
             }
         }
@@ -104,6 +103,8 @@ public class CocktailController {
     public String removeIngredient(Model model, Recipe recipe, HttpServletRequest request) {
         String path = request.getServletPath();
         recipe.getIngredients().remove(Integer.parseInt(request.getParameter("removeIngredient")));
+        recipe.getIngredientQuantities().remove(Integer.parseInt(request.getParameter("removeIngredient")));
+        recipe.getIngredientMeasurements().remove(Integer.parseInt(request.getParameter("removeIngredient")));
 
         if (path.endsWith("edit")) {
             model.addAttribute("title", "Edit " + recipe.getAuthor().getUsername() + "'s " + recipe.getCocktail().getName());
@@ -142,7 +143,7 @@ public class CocktailController {
 
                 Ingredient ingredient = ingredientList.get(i);
 
-                //TODO: this functionality is pretty hacky; should refactor to be cleaner & more efficient
+                //TODO: this functionality feels pretty hacky; should refactor to be cleaner & more efficient
                 //don't edit an existing ingredient; if it's being renamed, swap with a new one; if it's not being used by other recipes, delete the old one
                 Optional<Ingredient> oldIngredient = ingredientRepository.findById(ingredient.getId());
                 if (oldIngredient.isPresent()) {
@@ -177,9 +178,8 @@ public class CocktailController {
             return "error";
         } else {
             Recipe recipe = result.get();
-            model.addAttribute("title", recipe.getCocktail().getName() + " Recipe");
-            model.addAttribute("recipe", recipe);
-            model.addAttribute("ingredients", recipe.getIngredients());
+            model.addAttribute("title", "View Recipe");
+            model.addAttribute("recipeText", recipe.toString());
         }
 
         return "cocktails/recipe";

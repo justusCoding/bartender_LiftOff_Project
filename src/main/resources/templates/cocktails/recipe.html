@@ -5,19 +5,7 @@
 <body class="container">
 <header th:replace="fragments :: header"></header>
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Required Ingredients</th>
-    </tr>
-    </thead>
-
-    <tr th:each="ingredient: ${ingredients}">
-        <td th:text="${ingredient.name}"></td>
-    </tr>
-</table>
-
-<p id="recipe-instructions" th:text="${recipe.instructions}"></p>
+<p id="recipe-text" th:text="${recipeText}"></p>
 
 </body>
 </html>
