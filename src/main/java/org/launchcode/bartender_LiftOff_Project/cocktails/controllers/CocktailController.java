@@ -178,9 +178,8 @@ public class CocktailController {
             return "error";
         } else {
             Recipe recipe = result.get();
-            model.addAttribute("title", recipe.getCocktail().getName() + " Recipe");
-            model.addAttribute("recipe", recipe);
-            model.addAttribute("ingredients", recipe.getIngredients());
+            model.addAttribute("title", "View Recipe");
+            model.addAttribute("recipeText", recipe.toString());
         }
 
         return "cocktails/recipe";

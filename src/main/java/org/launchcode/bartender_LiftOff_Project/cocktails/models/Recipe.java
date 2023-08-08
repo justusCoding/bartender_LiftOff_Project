@@ -99,4 +99,15 @@ public class Recipe extends AbstractEntity {
     public List<String> getIngredientMeasurements() {
         return ingredientMeasurements;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder(author.getUsername() + "'s " + cocktail.getName() + " Recipe\n\nRequired Ingredients:\n\n");
+        for (int i = 0; i < ingredients.size(); i++) {
+            stringBuilder.append(ingredientQuantities.get(i)).append(" ").append(ingredientMeasurements.get(i)).append(" ").append(ingredients.get(i).getName()).append("\n");
+        }
+        stringBuilder.append("\n").append(instructions);
+
+        return stringBuilder.toString();
+    }
 }
