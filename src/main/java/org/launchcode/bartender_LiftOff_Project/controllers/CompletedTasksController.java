@@ -20,6 +20,7 @@ public class CompletedTasksController {
 
     @GetMapping("add")
     public String displayAddCompletedTasksPage(Model model) {
+        model.addAttribute("title", "Add Completed Task");
         model.addAttribute(new CompletedTask());
         model.addAttribute("completedTaskTypes", TaskType.values());
         model.addAttribute("employees", Employees.values());
@@ -40,12 +41,14 @@ public class CompletedTasksController {
 
     @GetMapping("list")
     public String displayListCompletedTasksPage(Model model) {
+        model.addAttribute("title", "Completed Task List");
         model.addAttribute("completedTasksList", completedTasksRepository.findAll());
         return "tasks/list-completed";
     }
 
     @GetMapping("delete")
     public String displayDeleteCompletedTasksPage(Model model) {
+        model.addAttribute("title", "Delete Completed Task");
         model.addAttribute("completedTasksList", completedTasksRepository.findAll());
         return "tasks/delete-completed";
     }

@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header>Add To Do Task</header>
-    </br>
+    <header th:replace="fragments :: header"></header>
     <form action="/tasks/todo/add" method="POST">
         <div>
             <label>Type:

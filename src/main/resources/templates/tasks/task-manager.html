@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header>Task Manager</header>
+    <header th:replace="fragments :: header"></header>
     </br>
         <p><a href="/tasks/todo/list">To Do Tasks</a></p>
         <p><a href="/tasks/completed/list">Completed Tasks</a></p>

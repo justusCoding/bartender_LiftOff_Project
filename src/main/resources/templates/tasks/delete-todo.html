@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header>Remove a To Do Task</header>
-    </br>
+    <header th:replace="fragments :: header"></header>
         <p th:unless="${todoTasksList} and ${todoTasksList.size()}">
             You have not added any to do tasks yet!
         </p>

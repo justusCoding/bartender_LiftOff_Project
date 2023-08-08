@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header>Add Completed Task</header>
-    </br>
+    <header th:replace="fragments :: header"></header>
     <form action="/tasks/completed/add" method="POST">
         <div>
             <label>Type:
@@ -37,7 +36,7 @@
                 <select th:field="${completedTask.employeeCompletedBy}">
                     <option th:each="type : ${employees}"
                             th:value="${type}"
-                            th:text="${type.displayName}"
+                            th:text="${type.employeeDisplayName}"
                     ></option>
                 </select>
             </label>

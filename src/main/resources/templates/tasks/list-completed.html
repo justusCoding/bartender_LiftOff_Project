@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<link rel="stylesheet" th:href="@{/main.css}" />
+<div th:replace="fragments :: head"></div>
 <head>
     <style>
     table {
@@ -18,8 +20,7 @@
     </style>
 </head>
 <body>
-    <h2>Completed Tasks</h2>
-    </br>
+    <header th:replace="fragments :: header"></header>
         <p th:unless="${completedTasksList} and ${completedTasksList.size()}">
             You have not added any completed tasks yet!
         </p>
@@ -55,7 +56,7 @@
                     <td th:text="${task.completedTaskName}" />
                     <td th:text="${task.completedTaskNotes}" />
                     <td th:text="${task.dateCompleted}" />
-                    <td th:text="${task.employeeCompletedBy.displayName}" />
+                    <td th:text="${task.employeeCompletedBy.employeeDisplayName}" />
                 </tr>
             </table>
         <p><a href="/tasks/completed/add">Add Completed Task</a></p>

@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header>Remove a Completed Task</header>
-    </br>
+    <header th:replace="fragments :: header"></header>
         <p th:unless="${completedTasksList} and ${completedTasksList.size()}">
             You have not added any completed tasks yet!
         </p>

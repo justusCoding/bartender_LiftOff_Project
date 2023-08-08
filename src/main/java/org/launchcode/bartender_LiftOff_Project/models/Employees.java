@@ -8,12 +8,12 @@ public enum Employees {
     JUSTUS("Justus"),
     OTHER("Other");
 
-    private final String displayName;
-    Employees(String displayName) {
-        this.displayName = displayName;
+    private final String employeeDisplayName;
+    Employees(String employeeDisplayName) {
+        this.employeeDisplayName = employeeDisplayName;
     }
-    public String getDisplayName() {
-        return displayName;
+    public String getEmployeeDisplayName() {
+        return employeeDisplayName;
     }
 
 }
