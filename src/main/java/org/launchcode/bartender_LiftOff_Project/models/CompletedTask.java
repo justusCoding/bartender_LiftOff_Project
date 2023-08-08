@@ -5,15 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class CompletedTasks {
+public class CompletedTask {
     @Id
     @GeneratedValue
     private int completedTaskId;
     @NotBlank(message = "Name is required.")
+    @Size(min = 0, max = 20, message = "Task must be 20 characters or less")
     private String completedTaskName;
     @Size(min = 0, max = 100, message = "Notes must be 100 characters or less.")
     private String completedTaskNotes;
@@ -21,10 +21,10 @@ public class CompletedTasks {
     private TaskType completedTaskType;
     private Employees employeeCompletedBy;
 
-    public CompletedTasks() {
+    public CompletedTask() {
     }
 
-    public CompletedTasks(String completedTaskName, String completedTaskDescription, String dateCompleted, TaskType completedTaskType, Employees employeeCompletedBy) {
+    public CompletedTask(String completedTaskName, String completedTaskDescription, String dateCompleted, TaskType completedTaskType, Employees employeeCompletedBy) {
         this.completedTaskName = completedTaskName;
         this.completedTaskNotes = completedTaskDescription;
         this.dateCompleted = dateCompleted;
@@ -87,8 +87,8 @@ public class CompletedTasks {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CompletedTasks)) return false;
-        CompletedTasks that = (CompletedTasks) o;
+        if (!(o instanceof CompletedTask)) return false;
+        CompletedTask that = (CompletedTask) o;
         return getCompletedTaskId() == that.getCompletedTaskId() && Objects.equals(getCompletedTaskName(), that.getCompletedTaskName()) && Objects.equals(getCompletedTaskNotes(), that.getCompletedTaskNotes()) && Objects.equals(getDateCompleted(), that.getDateCompleted()) && getCompletedTaskType() == that.getCompletedTaskType() && getEmployeeCompletedBy() == that.getEmployeeCompletedBy();
     }
 

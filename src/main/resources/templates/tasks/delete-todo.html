@@ -2,22 +2,22 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
-    <header>Remove a TODO Task</header>
+    <header>Remove a To Do Task</header>
     </br>
-        <p th:unless="${todotasks} and ${todotasks.size()}">
-            You have not added any TODO tasks yet!
+        <p th:unless="${todoTasksList} and ${todoTasksList.size()}">
+            You have not added any to do tasks yet!
         </p>
-        <form action="/tasks/delete-todo" method="POST">
-            <th:block th:each="task : ${todotasks}">
+        <form action="/tasks/todo/delete" method="POST">
+            <th:block th:each="task : ${todoTasksList}">
                 <label>
                     <input type="checkbox" name="todoTaskIds" th:value="${task.todoTaskId}" />
-                    <span th:text="${task.todoTaskType.displayName + ' | ' + task.todoTaskName + ' | ' + task.todoTaskNotes}"></span>
+                    <span th:text="${task.todoTaskType.taskTypeDisplayName + ' | ' + task.todoTaskName + ' | ' + task.todoTaskNotes}"></span>
                 </label><br/>
             </th:block>
-            <button type="submit">Delete TODO Task</button>
+            <button type="submit">Delete To Do Task</button>
         </form>
-        <p><a href="/tasks/add-todo">Add TODO Task</a></p>
-        <p><a href="/tasks/list-todo">TODO Task List</a></p>
-        <div th:replace="~{fragments :: home}"></div>
+        <p><a href="/tasks/todo/add">Add To Do Task</a></p>
+        <p><a href="/tasks/todo/list">To Do Task List</a></p>
+        <p><a href="/tasks">Task Manager</a></p>
 </body>
 </html>

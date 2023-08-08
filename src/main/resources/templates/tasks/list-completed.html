@@ -1,19 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<head>
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #DDD;
+    }
+    tr {
+      border-bottom: 1px solid #ddd;
+    }
+    tr:hover {background-color: #D6EEEE;}
+    </style>
+</head>
 <body>
-    <header>Completed Tasks List</header>
+    <h2>Completed Tasks</h2>
     </br>
-        <p th:unless="${completedtasks} and ${completedtasks.size()}">
+        <p th:unless="${completedTasksList} and ${completedTasksList.size()}">
             You have not added any completed tasks yet!
         </p>
-        <div>
-            <th:block th:each="task : ${completedtasks}">
-                <li th:text="${task.completedTaskType.displayName + ' | ' + task.completedTaskName + ' | ' + task.completedTaskNotes + ' | ' + task.dateCompleted + ' | ' + task.employeeCompletedBy.displayName}"></li>
-            </th:block>
-        </div></br>
-        <p><a href="/tasks/add-completed">Add Completed Task</a></p>
-        <p><a href="/tasks/delete-completed">Delete Completed Task</a></p>
-        <div th:replace="~{fragments :: home}"></div>
+            <table id="completed-table" class="table table-sortable">
+                <tr>
+                    <th>Type
+                        <select id="completed-type-list" onchange="sortByCompletedTaskType()" class='form-control'>
+                            <option></option>
+                            <option>Cleaning</option>
+                            <option>Stocking</option>
+                            <option>Rotating</option>
+                            <option>Ordering</option>
+                            <option>Miscellaneous</option>
+                        </select>
+                    </th>
+                    <th>Task</th>
+                    <th>Notes</th>
+                    <th>Date Completed</th>
+                    <th>Employee Completed By
+                        <select id="employee-list" onchange="sortByEmployeeCompletedBy()" class='form-control'>
+                            <option></option>
+                            <option>Ali</option>
+                            <option>Aurora</option>
+                            <option>Andrew</option>
+                            <option>Katherine</option>
+                            <option>Justus</option>
+                            <option>Other</option>
+                        </select>
+                    </th>
+                </tr>
+                <tr th:each="task : ${completedTasksList}">
+                    <td th:text="${task.completedTaskType.taskTypeDisplayName}" />
+                    <td th:text="${task.completedTaskName}" />
+                    <td th:text="${task.completedTaskNotes}" />
+                    <td th:text="${task.dateCompleted}" />
+                    <td th:text="${task.employeeCompletedBy.displayName}" />
+                </tr>
+            </table>
+        <p><a href="/tasks/completed/add">Add Completed Task</a></p>
+        <p><a href="/tasks/completed/delete">Delete Completed Task</a></p>
+        <p><a href="/tasks">Task Manager</a></p>
+    <script>
+        function sortByCompletedTaskType() {
+          let input, filter, table, tr, td, i;
+          input = document.getElementById("completed-type-list");
+          filter = input.value;
+          table = document.getElementById("completed-table");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              if (td.innerHTML.indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+
+        function sortByEmployeeCompletedBy() {
+          let input, filter, table, tr, td, i;
+          input = document.getElementById("employee-list");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("completed-table");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+    </script>
 </body>
 </html>

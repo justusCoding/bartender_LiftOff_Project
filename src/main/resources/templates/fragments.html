@@ -9,23 +9,19 @@
 </head>
 <body>
 
-<nav th:fragment="header">
-  <h1 th:text="${title}">MixMuse</h1>
+<nav th:fragment="header" id="mainH" >
+  
   <ul class="nav">
-
     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-    <li class="nav-item"><a class="nav-link" href="/cocktails">Recipes</a></li>
-    <li class="nav-item"><a class="nav-link" href="">Task Manager</a></li>
+    <li class="nav-item"><a class="nav-link" href="/cocktails">Cocktails</a></li>
+    <li class="nav-item"><a class="nav-link" href="">Search</a></li>
+    <li class="nav-item"><a class="nav-link" href="/tasks">Task Manager</a></li>
     <li class="nav-item"><a class="nav-link" href="">Tip Calculator</a></li>
-    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
     <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
-
-<!--    <li class="nav-item"><a class="nav-link" href="">Login</a></li>-->
-<!--    <li class="nav-item"><a class="nav-link" href="/cocktails">Cocktails</a></li>-->
-<!--    <li class="nav-item"><a class="nav-link" href="">Task Manager</a></li>-->
-<!--    <li class="nav-item"><a class="nav-link" href="">Tip Calculator</a></li>-->
-<!--    <li class="nav-item"><a class="nav-link" href="">Search</a></li>-->
+    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+ 
   </ul>
+  <h1 th:text="${title}"></h1>
 </nav>
 
 <div th:fragment="search-box">

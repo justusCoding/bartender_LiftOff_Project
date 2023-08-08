@@ -3,16 +3,18 @@ package org.launchcode.bartender_LiftOff_Project.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("tasks")
 public class TasksController {
 
-    @GetMapping("tasks/task-manager")
+    @GetMapping
     public String displayTasksPage() {
         return "tasks/task-manager";
     }
 
-    @PostMapping("tasks/task-manager")
+    @PostMapping
     public String processTasksPage() {
         return "tasks/task-manager";
     }
