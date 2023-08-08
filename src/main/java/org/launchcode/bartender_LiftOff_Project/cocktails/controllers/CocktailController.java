@@ -45,8 +45,7 @@ public class CocktailController {
     public String displayCocktails(Model model, HttpServletRequest request) {
         model.addAttribute("title", "Cocktail Recipes");
 
-        LocalDateTime startDate = LocalDateTime.now().minusDays(1);
-        model.addAttribute("recipes", recipeRepository.findRecipesCreatedAfterOrderByDateAddedDesc(startDate));
+        model.addAttribute("recipes", recipeRepository.findTop10RecipesOrderByDateAddedDesc());
 
         HttpSession session = request.getSession();
         User user = authenticationController.getUserFromSession(session);

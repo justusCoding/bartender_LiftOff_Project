@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tr th:each="recipe : ${recipes}">
-        <td th:text="${recipe.cocktail.name}"></td>
+        <td><a th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
         <td th:text="${recipe.author.username}"></td>
         <td th:text="${recipe.getFormattedDateAdded()}"></td>
     </tr>
