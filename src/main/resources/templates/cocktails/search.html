@@ -14,7 +14,7 @@
 
     <tr th:each="result : ${results}">
         <td><a th:href="'/cocktails/recipe?recipeId=' + ${result.id}" th:text="${result.cocktail.name}"></a></td>
-        <td th:text="${result.author.name}"></td>
+        <td th:text="${result.author.username}"></td>
         <td th:text="${result.getFormattedDateAdded()}"></td>
     </tr>
 
