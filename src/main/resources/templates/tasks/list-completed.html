@@ -16,7 +16,7 @@
     tr {
       border-bottom: 1px solid #ddd;
     }
-    tr:hover {background-color: #D6EEEE;}
+    tr:hover {background-color: #FDFD96;}
     </style>
 </head>
 <body>
@@ -39,17 +39,7 @@
                     <th>Task</th>
                     <th>Notes</th>
                     <th>Date Completed</th>
-                    <th>Employee Completed By
-                        <select id="employee-list" onchange="sortByEmployeeCompletedBy()" class='form-control'>
-                            <option></option>
-                            <option>Ali</option>
-                            <option>Aurora</option>
-                            <option>Andrew</option>
-                            <option>Katherine</option>
-                            <option>Justus</option>
-                            <option>Other</option>
-                        </select>
-                    </th>
+                    <th>Employee Completed By</th>
                 </tr>
                 <tr th:each="task : ${completedTasksList}">
                     <td th:text="${task.completedTaskType.taskTypeDisplayName}" />
@@ -81,23 +71,6 @@
           }
         }
 
-        function sortByEmployeeCompletedBy() {
-          let input, filter, table, tr, td, i;
-          input = document.getElementById("employee-list");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("completed-table");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
-            }
-          }
-        }
     </script>
 </body>
 </html>

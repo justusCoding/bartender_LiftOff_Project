@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head th:replace="fragments :: head"></head>
+<div th:replace="fragments :: head"></div>
+<head>
+    <style>
+        .button1:hover {
+        background-color: #FDFD96;
+        color: black;
+        }
+    </style>
+</head>
 <body>
     <header th:replace="fragments :: header"></header>
     <form action="/tasks/completed/add" method="POST">
@@ -41,7 +49,7 @@
                 </select>
             </label>
         </div>
-        <button type="submit">Add New Completed Task</button>
+        <button class="button button1" style="border-radius: 30px;" type="submit">Add New Completed Task</button>
         </form>
         </br>
         <p><a href="/tasks/completed/delete">Delete Completed Task</a></p>
