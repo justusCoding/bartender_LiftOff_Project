@@ -45,6 +45,10 @@ public class Recipe extends AbstractEntity {
     private final List<Double> ingredientQuantities = new ArrayList<>();
     @ElementCollection
     private final List<String> ingredientMeasurements = new ArrayList<>();
+    @OneToMany(mappedBy = "recipe")
+    @Valid
+    private final List<Comment> comments = new ArrayList<>();
+
 
     public Recipe(@Size(max = 500, message = "Instructions must be less than 500 characters") String instructions) {
        this.instructions = instructions;
@@ -110,4 +114,7 @@ public class Recipe extends AbstractEntity {
 
         return stringBuilder.toString();
     }
+
+    public List <Comment> getComments() {return comments; }
+
 }

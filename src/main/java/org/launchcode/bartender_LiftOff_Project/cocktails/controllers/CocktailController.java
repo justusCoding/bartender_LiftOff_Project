@@ -179,6 +179,7 @@ public class CocktailController {
             Recipe recipe = result.get();
             model.addAttribute("title", "View Recipe");
             model.addAttribute("recipeText", recipe.toString());
+            model.addAttribute("comments", recipe.getComments());
         }
 
         return "cocktails/recipe";

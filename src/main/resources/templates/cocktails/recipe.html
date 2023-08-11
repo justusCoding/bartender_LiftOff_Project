@@ -7,5 +7,22 @@
 
 <p id="recipe-text" th:text="${recipeText}"></p>
 
+<!--Adding Comment Feature: -->
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Comments</th>
+    </tr>
+    </thead>
+
+    <tr th:each="comment : ${comments}">
+        <td th:text="${comment.dateAdded}">Date Added</td>
+        <td th:text="${comment.userName}">Written By</td>
+        <td th:text="${comment.contents}">Comment Contents</td>
+    </tr>
+</table>
+<div>
+    <a th:href="${/cocktails/recipe/addcomment}">Add Comment</a>
+</div>
 </body>
 </html>

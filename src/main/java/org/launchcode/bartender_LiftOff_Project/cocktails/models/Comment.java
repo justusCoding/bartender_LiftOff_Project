@@ -1,29 +1,39 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.models;
+import org.launchcode.bartender_LiftOff_Project.models.AbstractEntity;
 import org.launchcode.bartender_LiftOff_Project.models.User;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-public class Comment {
+@Entity
+public class Comment extends AbstractEntity {
 
-    private int id;
-    private int nextId = 1;
     private LocalDateTime dateAdded;
+
+    @OneToOne
+    @NotNull
+    @Valid
     private User userName;
+
+    @Size(max = 500, message = "Comments must not exceed 500 characters")
     private String contents;
 
-    public Comment(int id, LocalDateTime dateAdded, User userName, String contents) {
-        this.id = nextId;
-        nextId++;
+    @ManyToOne
+    private Recipe recipe;
+
+    public Comment(LocalDateTime dateAdded, User userName, String contents) {
         this.dateAdded = dateAdded;
         this.userName = userName;
         this.contents = contents;
     }
+
+    public Comment(){}
+
 //    TODO: Automatically insert the date added and username who submitted comment
-
-    public int getId() {
-        return id;
-    }
-
     public LocalDateTime getDateAdded() {
         return dateAdded;
     }
@@ -48,16 +58,4 @@ public class Comment {
         this.contents = contents;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Comment comment = (Comment) o;
-        return id == comment.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
