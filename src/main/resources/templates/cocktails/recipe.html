@@ -5,19 +5,25 @@
 <body class="container">
 <header th:replace="fragments :: header"></header>
 
-<table class="table table-striped">
+<p id="recipe-text" th:text="${recipeText}"></p>
+
+<!--Adding Comment Feature:-->
+<table>
     <thead>
     <tr>
-        <th>Required Ingredients</th>
+        <th>Comments</th>
     </tr>
     </thead>
 
-    <tr th:each="ingredient: ${ingredients}">
-        <td th:text="${ingredient.name}"></td>
+    <tr th:each="comment : ${comments}">
+        <td th:text="${comment.dateAdded}">Date Added</td>
+        <td th:text="${comment.userName}">Written By</td>
+        <td th:text="${comment.contents}">Comment Contents</td>
     </tr>
 </table>
-
-<p id="recipe-instructions" th:text="${recipe.instructions}"></p>
-
+<!--<p>Date - User - Wow, this looks great!</p>-->
+<!--<div>-->
+<!--    <a th:href="${/cocktails/recipe/addcomment}">Add Comment</a>-->
+<!--</div>-->
 </body>
 </html>

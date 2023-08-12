@@ -23,8 +23,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
 
     private static boolean isWhitelisted(String path) {
         for (String pathRoot : whitelist) {
-            //changed from path.startsWith to path.equals to restrict CRUD operations to logged in users
-            if (path.equals(pathRoot)) {
+            if (path.startsWith(pathRoot)) {
                 return true;
             }
         }

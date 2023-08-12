@@ -1,0 +1,14 @@
+
+ .error {
+     color: red;
+     font-size: 0.9rem;
+     font-weight: bold;
+     margin: 0;
+ }
+
+ #recipe-text {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    font-color: red;
+ }
+
