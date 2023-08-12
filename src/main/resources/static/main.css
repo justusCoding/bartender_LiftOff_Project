@@ -24,3 +24,15 @@ body {
   background-size: 1600px;
  }
 }
+
+.pError {
+    color: red;
+    font-size: 0.9rem;
+    margin-left: 3rem;
+    margin-top:20rem;
+    margin-bottom:1rem;
+}
+
+.errorLink{
+margin-left:3rem;
+}
