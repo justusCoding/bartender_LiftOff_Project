@@ -22,7 +22,7 @@ public class CommentController {
     public String renderAddCommentForm(Model model) {
         model.addAttribute("title", "Add Comment");
         model.addAttribute("comment", new Comment());
-        return "redirect:";
+        return "cocktails/comment";
     }
 
     @PostMapping("cocktails/recipe/addcomment")

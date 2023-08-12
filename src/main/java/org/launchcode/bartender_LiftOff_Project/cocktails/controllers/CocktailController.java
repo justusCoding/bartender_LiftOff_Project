@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.support.SessionStatus;
@@ -179,7 +178,6 @@ public class CocktailController {
             Recipe recipe = result.get();
             model.addAttribute("title", "View Recipe");
             model.addAttribute("recipeText", recipe.toString());
-            model.addAttribute("comments", recipe.getComments());
         }
 
         return "cocktails/recipe";

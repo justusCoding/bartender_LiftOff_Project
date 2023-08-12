@@ -19,7 +19,7 @@ public class Comment extends AbstractEntity {
     @Valid
     private User userName;
 
-    @Size(max = 500, message = "Comments must not exceed 500 characters")
+    @Size(min = 5, max = 500, message = "Comments must be between 5 and 500 characters.")
     private String contents;
 
     @ManyToOne
