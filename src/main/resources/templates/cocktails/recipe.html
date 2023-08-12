@@ -21,9 +21,35 @@
         <td th:text="${comment.contents}">Comment Contents</td>
     </tr>
 </table>
-<!--<p>Date - User - Wow, this looks great!</p>-->
-<!--<div>-->
-<!--    <a th:href="${/cocktails/recipe/addcomment}">Add Comment</a>-->
-<!--</div>-->
+
+<p th:if="${comments.size() == 0}">No comments so far.</p>
+
+<div id="addCommentButton">
+    <button >Add Comment</button>
+</div>
+
+<div id="commentPopup" style="display: none;">
+    <br>
+    <form method="post" action="/submitcomment">
+        <textarea value="Enter Comment" id="commentText" name="commentText" rows="4" cols="50"></textarea>
+        <br>
+        <input type="submit" value="Submit Comment">
+    </form>
+</div>
+
+<script th:inline="javascript">
+    document.getElementById('addCommentButton').addEventListener('click', function() {
+        let popup = document.getElementById('commentPopup');
+        let commentText = document.getElementById('commentText');
+        popup.style.display = 'block';
+        commentText.focus();
+        popup.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+
+    });
+</script>
+
 </body>
 </html>
