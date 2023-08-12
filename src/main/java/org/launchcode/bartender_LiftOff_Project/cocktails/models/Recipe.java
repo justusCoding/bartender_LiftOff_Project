@@ -46,6 +46,11 @@ public class Recipe extends AbstractEntity {
     @ElementCollection
     private final List<String> ingredientMeasurements = new ArrayList<>();
 
+    @OneToMany(mappedBy = "recipe")
+    @Valid
+    private final List<Comment> comments = new ArrayList<>();
+
+
     public Recipe(@Size(max = 500, message = "Instructions must be less than 500 characters") String instructions) {
        this.instructions = instructions;
     }
@@ -106,8 +111,16 @@ public class Recipe extends AbstractEntity {
         for (int i = 0; i < ingredients.size(); i++) {
             stringBuilder.append(ingredientQuantities.get(i)).append(" ").append(ingredientMeasurements.get(i)).append(" ").append(ingredients.get(i).getName()).append("\n");
         }
-        stringBuilder.append("\n").append(instructions);
+        stringBuilder.append("\n").append(instructions).append("\n");
+
+        for (int i = 0; i < comments.size(); i++) {
+            stringBuilder.append(comments.get(i).getDateAdded()).append(" - ").append(comments.get(i).getUserName()).append("\n");
+            stringBuilder.append(comments.get(i).getContents());
+        }
 
         return stringBuilder.toString();
     }
+
+    public List <Comment> getComments() {return comments; }
+
 }
