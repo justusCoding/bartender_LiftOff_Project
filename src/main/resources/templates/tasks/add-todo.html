@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body>
-    <header>Add To Do Task</header>
-    </br>
+<body class="container">
+<header th:replace="fragments :: header"></header>
+
+<div class="add-todo">
     <form action="/tasks/todo/add" method="POST">
         <div>
             <label>Type:
@@ -38,5 +39,6 @@
     <p><a href="/tasks/todo/delete">Delete To Do Task</a></p>
     <p><a href="/tasks/todo/list">To Do Task List</a></p>
     <p><a href="/tasks">Task Manager</a></p>
+</div>
 </body>
 </html>

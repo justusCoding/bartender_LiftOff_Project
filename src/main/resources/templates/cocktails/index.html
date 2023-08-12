@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tr th:each="recipe : ${recipes}">
-        <td><a th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
+        <td><a class="cocktails" th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
         <td th:text="${recipe.author.username}"></td>
         <td th:text="${recipe.getFormattedDateAdded()}"></td>
     </tr>
@@ -40,7 +40,7 @@
         </tr>
         </thead>
         <tr th:each="recipe : ${userRecipes}">
-            <td><a th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
+            <td><a class="cocktails" th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
             <td th:text="${recipe.getFormattedDateAdded()}"></td>
             <td><a class="btn btn-info" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
         </tr>

@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <style>
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #DDD;
-    }
-    tr {
-      border-bottom: 1px solid #ddd;
-    }
-    tr:hover {background-color: #D6EEEE;}
-    </style>
-</head>
-<body>
-    <h2>To Do Tasks</h2>
-    </br>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<header th:replace="fragments :: header"></header>
+<!--<h2>To Do Tasks</h2>-->
+<!--<head>-->
+<!--    <style>-->
+<!--    table {-->
+<!--      border-collapse: collapse;-->
+<!--      width: 100%;-->
+<!--    }-->
+<!--    th, td {-->
+<!--      padding: 8px;-->
+<!--      text-align: left;-->
+<!--      border-bottom: 1px solid #DDD;-->
+<!--    }-->
+<!--    tr {-->
+<!--      border-bottom: 1px solid #ddd;-->
+<!--    }-->
+<!--    tr:hover {background-color: #D6EEEE;}-->
+<!--    </style>-->
+<!--</head>-->
+<!--    </br>-->
+<div class="todo">
         <p th:unless="${todoTasksList} and ${todoTasksList.size()}">
             You have not added any todo tasks yet!
         </p>
@@ -49,6 +52,7 @@
         <p><a href="/tasks/todo/add">Add To Do Task</a></p>
         <p><a href="/tasks/todo/delete">Delete To Do Task</a></p>
         <p><a href="/tasks">Task Manager</a></p>
+</div>
         <script>
             function sortByTodoTaskType() {
               let input, filter, table, tr, td, i;
