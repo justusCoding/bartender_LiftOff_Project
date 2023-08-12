@@ -29,6 +29,7 @@ public class PayCalculatorController {
     public String processPayCalculatorForm(@ModelAttribute @Valid Pay newPay,
                                            Errors errors, Model model) {
         if(errors.hasErrors()) {
+            model.addAttribute("title", "Calculate Take-Home Pay");
             return "pay/payCalculator";
         }
         // Calculate the totalPay after form data has been processed
@@ -38,6 +39,7 @@ public class PayCalculatorController {
         newPay.setTotalPay(totalPay);
         payRepository.save(newPay);
         model.addAttribute("payCalculations", payRepository.findAll());
+        model.addAttribute("title", "Total Take-Home Pay");
         return "pay/totalPayResults";
     }
 

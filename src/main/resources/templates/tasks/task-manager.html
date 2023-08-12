@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body>
-    <header>Task Manager</header>
-    </br>
+<body class="container">
+<header th:replace="fragments :: header"></header>
         <p><a href="/tasks/todo/list">To Do Tasks</a></p>
         <p><a href="/tasks/completed/list">Completed Tasks</a></p>
 </body>

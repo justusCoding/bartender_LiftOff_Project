@@ -20,6 +20,7 @@ public class CompletedTasksController {
 
     @GetMapping("add")
     public String displayAddCompletedTasksPage(Model model) {
+        model.addAttribute("title", "Add Completed Tasks");
         model.addAttribute(new CompletedTask());
         model.addAttribute("completedTaskTypes", TaskType.values());
         model.addAttribute("employees", Employees.values());
@@ -40,18 +41,20 @@ public class CompletedTasksController {
 
     @GetMapping("list")
     public String displayListCompletedTasksPage(Model model) {
+        model.addAttribute("title","Completed Tasks");
         model.addAttribute("completedTasksList", completedTasksRepository.findAll());
         return "tasks/list-completed";
     }
 
     @GetMapping("delete")
     public String displayDeleteCompletedTasksPage(Model model) {
+        model.addAttribute("title", "Remove Completed Tasks");
         model.addAttribute("completedTasksList", completedTasksRepository.findAll());
         return "tasks/delete-completed";
     }
 
     @PostMapping("delete")
-    public String processDeleteCompletedTasksPage(@RequestParam(required = false) int[] completedTaskIds) {
+    public String processDeleteCompletedTasksPage( @RequestParam(required = false) int[] completedTaskIds) {
         for (int id : completedTaskIds) {
             completedTasksRepository.deleteById(id);
         }

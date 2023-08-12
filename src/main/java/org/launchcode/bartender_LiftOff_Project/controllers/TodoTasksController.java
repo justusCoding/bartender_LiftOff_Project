@@ -19,6 +19,7 @@ public class TodoTasksController {
 
     @GetMapping("add")
     public String displayAddTodoTasksPage(Model model) {
+        model.addAttribute("title", "To Do Tasks");
         model.addAttribute(new TodoTask());
         model.addAttribute("todoTaskTypes", TaskType.values());
         return "tasks/add-todo";
@@ -26,6 +27,7 @@ public class TodoTasksController {
 
     @PostMapping("add")
     public String processAddToDoTasksPage(@ModelAttribute @Valid TodoTask todoTask, Errors errors, Model model) {
+        model.addAttribute("title","Add To Do Task");
         if (errors.hasErrors()) {
             model.addAttribute("todoTasks", todoTask);
             model.addAttribute("errors", errors);
@@ -38,12 +40,14 @@ public class TodoTasksController {
 
     @GetMapping("list")
     public String displayListToDoTasksPage(Model model) {
+        model.addAttribute("title","To Do Tasks");
         model.addAttribute("todoTasksList", todoTasksRepository.findAll());
         return "tasks/list-todo";
     }
 
     @GetMapping("delete")
     public String displayDeleteToDoTasksPage(Model model) {
+        model.addAttribute("title", "Remove To Do Task");
         model.addAttribute("todoTasksList", todoTasksRepository.findAll());
         return "tasks/delete-todo";
     }

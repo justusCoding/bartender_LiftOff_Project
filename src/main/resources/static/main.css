@@ -3,6 +3,11 @@ h1 {
 	margin-bottom:13rem;
 }
 
+h2{
+    color: #F7F88B;
+    margin-bottom:13rem;
+}
+
 a {
      font-size: 1rem;
      color: #F7F88B;
@@ -14,6 +19,7 @@ a {
 }
 
 body {
+    background-color:#FEFEF1;
   background-image: url("photos/background");
   background-size: cover;
   background-repeat:no-repeat;
@@ -35,4 +41,16 @@ body {
 
 .errorLink{
 margin-left:3rem;
+}
+
+.cocktails{
+color:black;
+}
+
+.todo{
+margin-bottom:13rem;
+}
+
+.error{
+color:red;
 }
