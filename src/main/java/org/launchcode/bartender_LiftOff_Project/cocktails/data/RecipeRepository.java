@@ -13,8 +13,8 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
-    @Query("SELECT r FROM Recipe r ORDER BY r.dateAdded DESC")
-    List<Recipe> findTop10RecipesOrderByDateAddedDesc();
+    @Query("SELECT r FROM Recipe r WHERE r.dateAdded >= :startDate ORDER BY r.dateAdded DESC")
+    List<Recipe> findRecipesCreatedAfterOrderByDateAddedDesc(@Param("startDate") LocalDateTime startDate);
 
     @Query("SELECT DISTINCT r FROM Recipe r LEFT JOIN r.ingredients i LEFT JOIN r.cocktail c WHERE c.name LIKE %:searchTerm% OR i.name LIKE %:searchTerm% OR c.name LIKE %:searchTerm%")
     List<Recipe> findByCocktailNameOrIngredientNameContaining(@Param("searchTerm") String searchTerm);

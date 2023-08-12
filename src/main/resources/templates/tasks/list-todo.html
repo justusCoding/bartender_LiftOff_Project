@@ -49,6 +49,7 @@
         <p><a href="/tasks/todo/add">Add To Do Task</a></p>
         <p><a href="/tasks/todo/delete">Delete To Do Task</a></p>
         <p><a href="/tasks">Task Manager</a></p>
+        <div th:replace="~{fragments :: home}"></div>
         <script>
             function sortByTodoTaskType() {
               let input, filter, table, tr, td, i;

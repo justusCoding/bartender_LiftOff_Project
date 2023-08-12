@@ -18,8 +18,6 @@
                 <table>
                     <tbody>
                     <tr th:each="ingredient, stat: *{ingredients}">
-                        <td><input type="text" placeholder="Quantity"th:field="*{ingredientQuantities[__${stat.index}__]}"></td>
-                        <td><input type="text" placeholder="e.g. 'oz'" th:field="*{ingredientMeasurements[__${stat.index}__]}"></td>
                         <td><input type="text" placeholder="Ingredient name" th:field="*{ingredients[__${stat.index}__].name}"></td>
                         <td><button class="btn btn-info" type="submit" name="removeIngredient" id="removeIngredient" th:value="${stat.index}">Remove</button></td>
                     </tr>

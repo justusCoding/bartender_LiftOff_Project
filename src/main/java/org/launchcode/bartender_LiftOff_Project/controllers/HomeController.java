@@ -11,7 +11,7 @@ public class HomeController {
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("title", "Mix Muse");
+        model.addAttribute("title", "Home");
 
         return "index"; }
 

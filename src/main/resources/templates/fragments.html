@@ -4,22 +4,26 @@
   <meta charset="UTF-8"/>
   <title>MixMuse</title>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" th:href="@{/styles.css}">
   <link rel="stylesheet" th:href="@{/main.css}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<nav th:fragment="header">
-  <h1 th:text="${title}">Mix Muse</h1>
+<nav th:fragment="header" id="mainH" >
+  
   <ul class="nav">
     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
     <li class="nav-item"><a class="nav-link" href="/cocktails">Cocktails</a></li>
-    <li class="nav-item"><a class="nav-link" href="/tasks">Task Manager</a></li>
-    <li class="nav-item"><a class="nav-link" href="/pay">Pay Calculator</a></li
-    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+    <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
+    <li class="nav-item"><a class="nav-link" href="/task-manager">Task Manager</a></li>
+    <li class="nav-item"><a class="nav-link" href="/payCalculator">Tip Calculator</a></li>
     <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+ 
   </ul>
+  <h1 th:text="${title}"></h1>
 </nav>
 
 <div th:fragment="search-box">
