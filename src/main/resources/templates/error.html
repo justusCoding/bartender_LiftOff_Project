@@ -3,8 +3,8 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<h1 class="error">Something went wrong!</h1>
-<p class="error" th:text="${errorMessage}"></p>
-<a th:href="@{/}">Back to MixMuse Homepage</a>
+<h1 class="pError">Something went wrong!</h1>
+<!--<p class="error" th:text="${errorMessage}"></p>-->
+<a  class="errorLink"th:href="@{/}">Back to MixMuse Homepage</a>
 </body>
 </html>
