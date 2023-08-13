@@ -30,10 +30,10 @@ public class SearchController {
     public String cocktailSearch(@NotBlank @RequestParam("search-term") String searchTerm, Model model) {
 
         model.addAttribute("title", "Search");
-        model.addAttribute("search-term", searchTerm);
+        model.addAttribute("searchTerm", searchTerm);
         List<Recipe> searchResults = recipeRepository.findByCocktailNameOrIngredientNameContaining(searchTerm);
-
         model.addAttribute("results", searchResults);
+
         return "cocktails/search";
     }
 }

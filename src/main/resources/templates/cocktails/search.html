@@ -4,16 +4,19 @@
 <body class="container">
 
 <header th:replace="fragments :: header"></header>
+<br>
+<br>
+<br>
 
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Search Results</th>
+        <th th:text="'Search Results for '+ ${searchTerm}"></th>
     </tr>
     </thead>
 
     <tr th:each="result : ${results}">
-        <td><a th:href="'/cocktails/recipe?recipeId=' + ${result.id}" th:text="${result.cocktail.name}"></a></td>
+        <td><a style="color: maroon" th:href="'/cocktails/recipe?recipeId=' + ${result.id}" th:text="${result.cocktail.name}"></a></td>
         <td th:text="${result.author.username}"></td>
         <td th:text="${result.getFormattedDateAdded()}"></td>
     </tr>

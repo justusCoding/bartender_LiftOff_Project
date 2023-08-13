@@ -4,11 +4,11 @@
 
 <head th:replace="fragments :: head"></head>
 <body class="container">
-<link rel="stylesheet" th:href="@{/main.css}" />
 <header th:replace="fragments :: header"></header>
-
-<div th:replace="fragments :: search-box"></div>
-
+<br>
+<br>
+<br>
+<div class="container">
 <table class="table table-striped">
     <thead>
     <tr>
@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tr th:each="recipe : ${recipes}">
-        <td><a th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
+        <td><a class="cocktail-link" th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
         <td th:text="${recipe.author.username}"></td>
         <td th:text="${recipe.getFormattedDateAdded()}"></td>
     </tr>
@@ -40,14 +40,14 @@
         </tr>
         </thead>
         <tr th:each="recipe : ${userRecipes}">
-            <td><a th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
+            <td><a class="cocktail-link" th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
             <td th:text="${recipe.getFormattedDateAdded()}"></td>
-            <td><a class="btn btn-info" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
+            <td><a class="btn btn-info" th:nowrap="true" th:align="right" style="border-color: maroon;" id="edit-btn" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
         </tr>
     </table>
 
-    <p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>
-
+    <p> <a class="btn btn-info" style="background-color: maroon; border-color:maroon;" th:href="@{cocktails/create}">Add a New Cocktail Recipe</a></p>
+</div>
 </div>
 </body>
 </html>

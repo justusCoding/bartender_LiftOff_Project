@@ -3,7 +3,10 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <header th:replace="fragments :: header"></header>
-<form  action="#" th:action="@{create}" th:object="${recipe}" method="post">
+<br>
+<br>
+<div class="container">
+<form action="#" th:action="@{create}" th:object="${recipe}" method="post">
     <div class="form-group" th:align="left">
         <label for="cocktail-name">Cocktail Name
             <input type="text" id="cocktail-name" th:field="*{cocktail.name}" placeholder="e.g. 'Margarita'" class="form-control">
@@ -21,10 +24,10 @@
                 <tr><th th:text="Quantity"></th><th th:text="Measurement"></th><th th:text="Ingredient"></th></tr>
                 </div>
                 <tr th:each="ingredient, stat: *{ingredients}">
-                    <td><input type="text" placeholder="Quantity"th:field="*{ingredientQuantities[__${stat.index}__]}"></td>
-                    <td><input type="text" placeholder="e.g. 'oz'" th:field="*{ingredientMeasurements[__${stat.index}__]}"></td>
-                    <td><input type="text" placeholder="e.g. 'Tequila', 'Orgeat'" th:field="*{ingredients[__${stat.index}__].name}"></td>
-                    <td><button class="btn btn-info" type="submit" name="removeIngredient" id="removeIngredient" th:value="${stat.index}">Remove</button></td>
+                    <td><input class="form-control" type="text" placeholder="Quantity"th:field="*{ingredientQuantities[__${stat.index}__]}"></td>
+                    <td><input class="form-control" type="text" placeholder="e.g. 'oz'" th:field="*{ingredientMeasurements[__${stat.index}__]}"></td>
+                    <td><input class="form-control" type="text" placeholder="e.g. 'Tequila', 'Orgeat'" th:field="*{ingredients[__${stat.index}__].name}"></td>
+                    <td><button class="btn btn-info" style="background-color: maroon; border-color: maroon;" type="submit" name="removeIngredient" id="removeIngredient" th:value="${stat.index}">Remove</button></td>
                 </tr>
                 </tbody>
             </table>
@@ -32,7 +35,7 @@
                 <p class="error" th:errors="*{ingredients[0].name}"></p>
             </div>
         </div>
-        <button class="btn btn-info" th:nowrap="true" th:align="right" type="submit" name="addIngredient" id="addIngredient">Add Ingredient</button>
+        <button class="btn btn-info" style="background-color: maroon; border-color: maroon;" th:nowrap="true" th:align="right" type="submit" name="addIngredient" id="addIngredient">Add Ingredient</button>
     </div>
 
     <div class="form-group" th:align="left">
@@ -42,8 +45,9 @@
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Create Cocktail" class="btn btn-success">
+        <input type="submit" style="background-color: maroon; border-width: 0px" value="Create Cocktail" class="btn btn-success">
     </div>
 </form>
+</div>
 </body>
 </html>

@@ -23,7 +23,7 @@ import java.util.Map;
 @Entity
 public class Recipe extends AbstractEntity {
 
-    @Size(min = 5, max = 500, message = "Instructions must be less than 500 characters")
+    @Size(min = 3, max = 500, message = "Instructions are required and must be less than 500 characters")
     private String instructions;
 
     @ManyToOne(cascade=CascadeType.ALL)
@@ -46,7 +46,7 @@ public class Recipe extends AbstractEntity {
     @ElementCollection
     private final List<String> ingredientMeasurements = new ArrayList<>();
 
-    public Recipe(@Size(max = 500, message = "Instructions must be less than 500 characters") String instructions) {
+    public Recipe(String instructions) {
        this.instructions = instructions;
     }
 
