@@ -3,9 +3,9 @@
 <head th:replace="fragments :: head"></head>
 
 <body class="container">
-<header th:replace="fragments :: header"></header>
+<div th:replace="fragments :: header"></div>
 
-<p id="recipe-text" th:text="${recipeText}"></p>
+<p id="recipe-text" th:text="${recipeText}">Recipe Text</p>
 
 <!--Adding Comment Feature:-->
 <table>
@@ -22,7 +22,7 @@
     </tr>
 </table>
 
-<p th:if="${comments.size() == 0}">No comments so far.</p>
+<div th:if="${comments.size() == 0}">No comments so far.</div>
 
 <div id="addCommentButton">
     <button >Add Comment</button>
@@ -30,8 +30,8 @@
 
 <div id="commentPopup" style="display: none;">
     <br>
-    <form method="post" action="/submitcomment">
-        <textarea value="Enter Comment" id="commentText" name="commentText" rows="4" cols="50"></textarea>
+    <form method="post" action="cocktails/recipe/comment">
+        <textarea id="commentText" name="contents" rows="4" cols="50"></textarea>
         <br>
         <input type="submit" value="Submit Comment">
     </form>

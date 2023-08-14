@@ -113,14 +113,14 @@ public class Recipe extends AbstractEntity {
         }
         stringBuilder.append("\n").append(instructions).append("\n");
 
-        for (int i = 0; i < comments.size(); i++) {
-            stringBuilder.append(comments.get(i).getDateAdded()).append(" - ").append(comments.get(i).getUserName()).append("\n");
-            stringBuilder.append(comments.get(i).getContents());
-        }
-
         return stringBuilder.toString();
     }
 
     public List <Comment> getComments() {return comments; }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setRecipe(this);
+    }
 
 }

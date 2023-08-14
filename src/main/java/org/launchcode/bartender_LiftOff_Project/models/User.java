@@ -1,7 +1,6 @@
 package org.launchcode.bartender_LiftOff_Project.models;
 
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Recipe;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
