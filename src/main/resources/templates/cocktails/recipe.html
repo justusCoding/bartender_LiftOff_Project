@@ -30,9 +30,9 @@
 
 <div id="commentPopup" style="display: none;">
     <br>
-    <form method="post" action="/cocktails/recipe">
-        <textarea id="commentText" name="commentContents" th:value=${commentContents} rows="4" cols="50"></textarea>
-        <input type="hidden" name="recipeId" th:value="recipeId">
+    <form method="post" th:action="@{/cocktails/recipe(recipeId=${recipeId})}">
+        <textarea id="commentText" name="commentContents" rows="4" cols="50"></textarea>
+        <input type="hidden" name="recipeId" th:value="${recipeId}">
         <br>
         <input type="submit" value="Submit Comment">
     </form>
