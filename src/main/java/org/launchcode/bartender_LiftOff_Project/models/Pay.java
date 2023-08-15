@@ -57,7 +57,8 @@ public class Pay {
                 this.creditCardTips = creditCardTips;
                 this.cashTips = cashTips;
                 this.taxRate = taxRate;
-                this.totalPay = ((hourlyRate * hoursWorked) + creditCardTips + cashTips) * (1 - (taxRate / 100));
+                Double calculatedTotalPay = ((hourlyRate * hoursWorked) + creditCardTips + cashTips) * (1 - (taxRate / 100));
+                this.totalPay = Math.round(calculatedTotalPay * 100.0) / 100.0;
             }
 
             public Pay() {}
