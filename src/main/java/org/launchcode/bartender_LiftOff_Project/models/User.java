@@ -10,11 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User {
-
-    @Id
-    @GeneratedValue
-    private int id;
+public class User extends AbstractEntity {
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     @NotNull
@@ -39,10 +35,6 @@ public class User {
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
-    }
-
-    public int getId() {
-        return id;
     }
 
     public List<Recipe> getCreatedRecipes() {
