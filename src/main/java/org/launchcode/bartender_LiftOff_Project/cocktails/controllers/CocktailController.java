@@ -1,11 +1,8 @@
 package org.launchcode.bartender_LiftOff_Project.cocktails.controllers;
 
-import net.bytebuddy.asm.Advice;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.CocktailRepository;
-import org.launchcode.bartender_LiftOff_Project.cocktails.data.RecipeRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.data.IngredientRepository;
+import org.launchcode.bartender_LiftOff_Project.cocktails.data.RecipeRepository;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Cocktail;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Ingredient;
 import org.launchcode.bartender_LiftOff_Project.cocktails.models.Recipe;
@@ -15,15 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @SessionAttributes("recipe")
@@ -178,6 +176,8 @@ public class CocktailController {
             Recipe recipe = result.get();
             model.addAttribute("title", "View Recipe");
             model.addAttribute("recipeText", recipe.toString());
+            model.addAttribute("comments", recipe.getComments());
+            model.addAttribute("recipeId", recipe.getId());
         }
 
         return "cocktails/recipe";

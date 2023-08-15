@@ -3,26 +3,37 @@
 <head th:replace="fragments :: head"></head>
 
 <body class="container">
-<header th:replace="fragments :: header"></header>
+<div th:replace="fragments :: header"></div>
 
-<p id="recipe-text" th:text="${recipeText}"></p>
+<p id="recipe-text" th:text="${recipeText}">Recipe Text</p>
 
 <!--Adding Comment Feature:-->
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+</style>
 <table>
     <thead>
     <tr>
-        <th>Comments</th>
+        <th>Date Added</th>
+        <th>Written By</th>
+        <th>Comment</th>
     </tr>
     </thead>
 
     <tr th:each="comment : ${comments}">
         <td th:text="${comment.dateAdded}">Date Added</td>
-        <td th:text="${comment.userName}">Written By</td>
+        <td th:text="${comment.userName.username}">Written By</td>
         <td th:text="${comment.contents}">Comment Contents</td>
     </tr>
 </table>
 
-<p th:if="${comments.size() == 0}">No comments so far.</p>
+<div th:if="${comments.size() == 0}">No comments so far.</div>
 
 <div id="addCommentButton">
     <button >Add Comment</button>
@@ -30,8 +41,10 @@
 
 <div id="commentPopup" style="display: none;">
     <br>
-    <form method="post" action="/submitcomment">
-        <textarea value="Enter Comment" id="commentText" name="commentText" rows="4" cols="50"></textarea>
+    <form method="post" th:action="@{/cocktails/recipe/comment}">
+        <textarea id="commentText" name="commentContents" th:value="${commentContents}" rows="4" cols="50"></textarea>
+        <input type="hidden" name="recipeId" th:value="${recipeId}">
+        <input type="hidden" name="userName" th:value="${userName}">
         <br>
         <input type="submit" value="Submit Comment">
     </form>
