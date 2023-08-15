@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<div th:replace="fragments :: head"></div>
+<head>
+    <style>
+        .button1:hover {
+        background-color: #FDFD96;
+        color: black;
+        }
+    </style>
+</head>
+<body>
+    <header th:replace="fragments :: header"></header>
+        <p th:unless="${employeeList} and ${employeeList.size()}">
+            You have not added any employees yet!
+        </p>
+        <form action="/employees/delete" method="POST">
+            <th:block th:each="employee : ${employeeList}">
+                <label>
+                    <input type="checkbox" name="employeeIds" th:value="${employee.employeeId}" />
+                    <span th:text="${employee.position.positionDisplayName + ' | ' + employee.employeeId + ' | ' + employee.employeeFirstName + ' | ' + employee.employeeLastName + ' | ' + employee.dateOfBirth}"></span>
+                </label><br/>
+            </th:block>
+            <button class="button button1" style="border-radius: 30px;" type="submit">Remove Employee(s)</button>
+        </form>
+        <p><a href="/employees/add">Add Employee</a></p>
+        <p><a href="/employees/list">Employee List</a></p>
+</body>
+</html>

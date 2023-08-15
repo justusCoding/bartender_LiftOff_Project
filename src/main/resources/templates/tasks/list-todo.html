@@ -69,7 +69,7 @@
                 </tbody>
             </table>
         <p><a href="/tasks/todo/add">Add To Do Task</a></p>
-        <p><a href="/tasks/todo/delete">Delete To Do Task</a></p>
+        <p><a href="/tasks/todo/delete">Remove To Do Task</a></p>
         <p><a href="/tasks">Task Manager</a></p>
 
         <script>
@@ -116,7 +116,7 @@
 
             document.querySelectorAll(".table-sortable th").forEach(headerCell => {
                 headerCell.addEventListener("click", () => {
-                    const tableElement = headerCell.parentElement.parentElement.parentElement;
+                    const tableElement = headerCell.closest('table');
                     const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
                     const currentIsAscending = headerCell.classList.contains("th-sort-asc");
 

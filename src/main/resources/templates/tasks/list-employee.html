@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<link rel="stylesheet" th:href="@{/main.css}" />
+<div th:replace="fragments :: head"></div>
+
+<head>
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #DDD;
+    }
+    tr {
+      border-bottom: 1px solid #ddd;
+    }
+    tr:hover {background-color: #FDFD96;}
+    </style>
+</head>
+<body>
+    <header th:replace="fragments :: header"></header>
+        <p th:unless="${employeeList} and ${employeeList.size()}">
+            You have not added any employees yet!
+        </p>
+            <table id="employee-table" class="table table-sortable">
+                <thead>
+                    <tr>
+                        <th>Position
+                            <select id="position-list" onchange="sortByEmployeePosition()" class='form-control'>
+                                <option></option>
+                                <option>General Manager</option>
+                                <option>Assistant Manager</option>
+                                <option>Bartender</option>
+                                <option>Server</option>
+                                <option>Bar Back</option>
+                                <option>Cook</option>
+                            </select>
+                        </th>
+                        <th>Employee ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th id="date-of-birth">Date Of Birth</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employee : ${employeeList}">
+                        <td th:text="${employee.position.positionDisplayName}" />
+                        <td th:text="${employee.employeeId}" />
+                        <td th:text="${employee.employeeFirstName}" />
+                        <td th:text="${employee.employeeLastName}" />
+                        <td th:text="${employee.dateOfBirth}" />
+                    </tr>
+                </tbody>
+            </table>
+        <p><a href="/employees/add">Add Employee</a></p>
+        <p><a href="/employees/delete">Remove Employee</a></p>
+
+        <script>
+              function sortByEmployeePosition() {
+              let input, filter, table, tr, td, i;
+              input = document.getElementById("position-list");
+              filter = input.value;
+              table = document.getElementById("employee-table");
+              tr = table.getElementsByTagName("tr");
+              for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                  if (td.innerHTML.indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+            }
+        </script>
+
+</body>
+</html>
