@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -30,42 +31,49 @@ public class CommentController {
     @Autowired
     private AuthenticationController authenticationController;
 
-    @PostMapping("/cocktails/recipe(recipeId={recipeId})")
-    public String processAddCommentForm(@RequestParam String commentContents,
-                                        @PathVariable Integer recipeId,
-                                        @ModelAttribute @Valid Comment newComment,
-                                        HttpServletRequest request,
-                                        Model model, Errors errors) {
-        HttpSession session = request.getSession();
-        User user = authenticationController.getUserFromSession(session);
-        if (user == null) {
-            model.addAttribute("title", "Invalid ID");
-            model.addAttribute("errorMessage", "User not found");
-            System.out.println("User not found");
-            return "error";
-        }
-//
-        Optional<Recipe> result = recipeRepository.findById(recipeId);
-        if(errors.hasErrors()) {
-            model.addAttribute("errorMessage", "Different issue!");
-            System.out.println("Other issue");
-            return "error";
-        }
-            newComment.setDateAdded(LocalDateTime.now());
+    @PostMapping("/cocktails/recipe/comment")
+    public String processAddCommentForm(@RequestParam Integer recipeId,
+                                        @RequestParam String commentContents,
+                                        @ModelAttribute Comment newComment,
+                                        HttpServletRequest request, Model model) {
+        try {
+            HttpSession session = request.getSession();
+            User user = authenticationController.getUserFromSession(session);
+            Optional<Recipe> result = recipeRepository.findById(recipeId);
+
+            if (user == null) {
+                model.addAttribute("errorMessage", "User not found");
+                return "error";
+            }
+
+
+            newComment.setDateAdded(LocalDate.now());
             newComment.setUserName(user);
             newComment.setContents(commentContents);
 
-        if (result.isPresent()) {
             Recipe recipe = result.get();
             recipe.addComment(newComment);
-        } else {
-            model.addAttribute("title", "Invalid ID");
-            model.addAttribute("errorMessage", "Recipe not found");
-            System.out.println("Recipe not found");
-            return "error";        }
+            commentRepository.save(newComment);
 
-        commentRepository.save(newComment);
+            return "redirect:/cocktails/recipe?recipeId=" + recipeId;
 
-        return "redirect:/cocktails/recipe?recipeId=" + recipeId;
+        }
+
+            catch (Exception e) {
+                model.addAttribute("title", "Error");
+                model.addAttribute("errorMessage", "You're in the catch!");
+                e.printStackTrace();
+                return "error";
+                }
+
+
+
+
+
     }
+
+
+
+
+
 }
