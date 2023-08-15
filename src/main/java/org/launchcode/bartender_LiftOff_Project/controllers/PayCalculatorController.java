@@ -36,7 +36,10 @@ public class PayCalculatorController {
         Double totalPay = ((newPay.getHourlyRate() * newPay.getHoursWorked())
                 + newPay.getCreditCardTips() + newPay.getCashTips())
                 * (1 - (newPay.getTaxRate() / 100));
-        newPay.setTotalPay(totalPay);
+
+        Double roundedTotalPay = (double) Math.round(totalPay * 100) / 100;
+
+        newPay.setTotalPay(roundedTotalPay);
         payRepository.save(newPay);
         model.addAttribute("payCalculations", payRepository.findAll());
         model.addAttribute("title", "Total Take-Home Pay");
