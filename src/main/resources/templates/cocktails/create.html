@@ -9,7 +9,7 @@
 <form action="#" th:action="@{create}" th:object="${recipe}" method="post">
     <div class="form-group" th:align="left">
         <label for="cocktail-name">Cocktail Name
-            <input type="text" id="cocktail-name" th:field="*{cocktail.name}" placeholder="e.g. 'Margarita'" class="form-control">
+            <input type="text" id="cocktail-name" th:field="*{cocktail.name}" placeholder="e.g. 'Margarita' " class="form-control">
         </label>
         <p class="error" th:errors="*{cocktail.name}"></p>
     </div>
@@ -26,7 +26,7 @@
                 <tr th:each="ingredient, stat: *{ingredients}">
                     <td><input class="form-control" type="text" placeholder="Quantity"th:field="*{ingredientQuantities[__${stat.index}__]}"></td>
                     <td><input class="form-control" type="text" placeholder="e.g. 'oz'" th:field="*{ingredientMeasurements[__${stat.index}__]}"></td>
-                    <td><input class="form-control" type="text" placeholder="e.g. 'Tequila', 'Orgeat'" th:field="*{ingredients[__${stat.index}__].name}"></td>
+                    <td><input class="form-control" type="text" placeholder="e.g. 'Tequila', 'Lime Juice'" th:field="*{ingredients[__${stat.index}__].name}"></td>
                     <td><button class="btn btn-info" style="background-color: maroon; border-color: maroon;" type="submit" name="removeIngredient" id="removeIngredient" th:value="${stat.index}">Remove</button></td>
                 </tr>
                 </tbody>
@@ -40,7 +40,7 @@
 
     <div class="form-group" th:align="left">
     <label for="recipe-instructions">Recipe Instructions
-        <textarea id="recipe-instructions" th:field="*{instructions}" class="form-control"></textarea></label>
+        <textarea placeholder="Detail necessary steps to create your cocktail" id="recipe-instructions" th:field="*{instructions}" class="form-control" rows="10" cols="75"></textarea></label>
     <p class="error" th:errors="*{instructions}"></p>
     </div>
 

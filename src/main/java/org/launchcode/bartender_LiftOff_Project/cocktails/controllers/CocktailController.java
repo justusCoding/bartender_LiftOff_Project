@@ -53,6 +53,7 @@ public class CocktailController {
         if (user != null) {
             List<Recipe> userRecipes = user.getCreatedRecipes();
             model.addAttribute("userRecipes", userRecipes);
+            model.addAttribute("user", user);
         }
 
         return "cocktails/index";
