@@ -46,7 +46,7 @@ public class Recipe extends AbstractEntity {
     @ElementCollection
     private final List<String> ingredientMeasurements = new ArrayList<>();
 
-    public Recipe(String instructions) {
+    public Recipe(@Valid String instructions) {
        this.instructions = instructions;
     }
 
