@@ -29,7 +29,7 @@
 </table>
 
 <div th:if="${user}">
-    <p> <a class="btn btn-info maroonButton" th:href="@{cocktails/create}">Add a New Cocktail Recipe</a></p>
+    <p> <a class="btn btn-info" style="background-color: maroon; border-color:maroon;" th:href="@{cocktails/create}">Add a New Cocktail Recipe</a></p>
 </div>
     <div th:if="${userRecipes} and ${userRecipes.size()} > 0">
     <table class="table table-striped">
