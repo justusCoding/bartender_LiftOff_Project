@@ -61,7 +61,7 @@ public class CommentController {
 
             catch (Exception e) {
                 model.addAttribute("title", "Error");
-                model.addAttribute("errorMessage", "You're in the catch!");
+                model.addAttribute("errorMessage", "There seems to be a problem");
                 e.printStackTrace();
                 return "error";
                 }
