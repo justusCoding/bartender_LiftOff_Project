@@ -44,7 +44,12 @@ margin-left:3rem;
 }
 
 .cocktails{
-color:black;
+color: maroon;
+}
+
+.maroonButton {
+background-color: maroon;
+border-width: 0px;
 }
 
 .todo{
