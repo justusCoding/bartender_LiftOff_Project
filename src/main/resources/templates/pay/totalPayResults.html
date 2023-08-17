@@ -8,7 +8,6 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Date</th>
             <th>Shift</th>
             <th>Total Pay</th>
@@ -16,7 +15,6 @@
         </thead>
 
         <tr th:each="pay : ${payCalculations}">
-            <td th:text="${pay.id}">ID</td>
             <td th:text="${pay.dateWorked}">Date Worked</td>
             <td th:text="${pay.shiftWorked}">Shift Worked</td>
             <td th:text="${pay.totalPay}">Total Pay</td>
