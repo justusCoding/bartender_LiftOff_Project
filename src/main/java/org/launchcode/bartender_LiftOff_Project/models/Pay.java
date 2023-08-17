@@ -7,11 +7,7 @@ import javax.validation.constraints.*;
 import java.util.Objects;
 
 @Entity
-public class Pay {
-
-            @Id
-            @GeneratedValue
-            private int id;
+public class Pay extends AbstractEntity {
 
             @NotNull(message = "Date is a required field")
             private String dateWorked;
@@ -79,10 +75,6 @@ public class Pay {
         this.totalPay = totalPay;
     }
 
-    public int getId() {
-                return id;
-            }
-
             public Double getHoursWorked() {
                 return hoursWorked;
             }
@@ -138,18 +130,6 @@ public class Pay {
                         ".";
             }
 
-            @Override
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                Pay pay = (Pay) o;
-                return id == pay.id;
-            }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
 
 
