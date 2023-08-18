@@ -50,6 +50,7 @@ public class CocktailController {
         if (user != null) {
             List<Recipe> userRecipes = user.getCreatedRecipes();
             model.addAttribute("userRecipes", userRecipes);
+            model.addAttribute("user", user);
         }
 
         return "cocktails/index";
@@ -143,7 +144,7 @@ public class CocktailController {
                 //don't edit an existing ingredient; if it's being renamed, swap with a new one; if it's not being used by other recipes, delete the old one
                 Optional<Ingredient> oldIngredient = ingredientRepository.findById(ingredient.getId());
                 if (oldIngredient.isPresent()) {
-                    if (!ingredient.getName().equals(oldIngredient.get().getName())) {
+                    if (!ingredient.getName().equalsIgnoreCase(oldIngredient.get().getName())) {
                         ingredientList.add(i, new Ingredient(ingredient.getName()));
                         ingredientList.remove(oldIngredient.get());
                     }

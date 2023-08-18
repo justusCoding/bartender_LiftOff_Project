@@ -28,7 +28,10 @@
     </tr>
 </table>
 
-<div th:if="${userRecipes}">
+<div th:if="${user}">
+    <p> <a class="btn btn-info" style="background-color: maroon; border-color:maroon;" th:href="@{cocktails/create}">Add a New Cocktail Recipe</a></p>
+</div>
+    <div th:if="${userRecipes} and ${userRecipes.size()} > 0">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -42,11 +45,10 @@
         <tr th:each="recipe : ${userRecipes}">
             <td><a class="cocktails" th:href="'/cocktails/recipe?recipeId=' + ${recipe.id}" th:text="${recipe.cocktail.name}"></a></td>
             <td th:text="${recipe.getFormattedDateAdded()}"></td>
-            <td><a class="btn btn-info" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
+            <td><a class="btn btn-info maroonButton" th:href="@{cocktails/edit?recipeId={recipeId} (recipeId=${recipe.id})}">Edit Recipe</a></td>
         </tr>
     </table>
 
-    <p><a href="/cocktails/create">Add a New Cocktail Recipe</a></p>
 
 </div>
 </body>

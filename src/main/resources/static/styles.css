@@ -12,3 +12,7 @@
     font-color: red;
  }
 
+.maroonButton {
+    background-color: maroon;
+    border-width: 0px;
+}
