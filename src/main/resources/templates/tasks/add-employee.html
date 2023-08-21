@@ -14,15 +14,15 @@
     <form action="/employees/add" method="POST">
         <div>
             <label>First Name:
-                <input th:field="${employees2.employeeFirstName}" />
+                <input th:field="${employeesList.employeeFirstName}" />
             </label>
-            <p class="error" th:errors="${employees2.employeeFirstName}"></p>
+            <p class="error" th:errors="${employeesList.employeeFirstName}"></p>
         </div>
         <div>
             <label>Last Name:
-                <input th:field="${employees2.employeeLastName}" />
+                <input th:field="${employeesList.employeeLastName}" />
             </label>
-            <p class="error" th:errors="${employees2.employeeLastName}"></p>
+            <p class="error" th:errors="${employeesList.employeeLastName}"></p>
         </div>
         <div>
             <label>Date Of Birth:
@@ -31,7 +31,7 @@
         </div>
         <div>
             <label>Position:
-                <select th:field="${employees2.position}">
+                <select th:field="${employeesList.position}">
                     <option th:each="employee : ${positionType}"
                             th:value="${employee}"
                             th:text="${employee.positionDisplayName}"

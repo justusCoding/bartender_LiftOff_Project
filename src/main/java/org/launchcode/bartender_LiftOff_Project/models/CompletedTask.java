@@ -36,6 +36,10 @@ public class CompletedTask {
         return completedTaskId;
     }
 
+    public void setCompletedTaskId(int completedTaskId) {
+        this.completedTaskId = completedTaskId;
+    }
+
     public String getCompletedTaskName() {
         return completedTaskName;
     }
@@ -68,32 +72,31 @@ public class CompletedTask {
         this.completedTaskType = completedTaskType;
     }
 
+    public Employees getEmployeesListVariable() {
+        return employeeCompletedBy;
+    }
+
+    public void setEmployeesListVariable(Employees employeeCompletedBy) {
+        this.employeeCompletedBy = employeeCompletedBy;
+    }
+
+    @Override
+    public String toString() {
+        return "CompletedTask{" +
+                "completedTaskId=" + completedTaskId +
+                ", completedTaskName='" + completedTaskName + '\'' +
+                ", completedTaskNotes='" + completedTaskNotes + '\'' +
+                ", dateCompleted='" + dateCompleted + '\'' +
+                ", completedTaskType=" + completedTaskType +
+                ", employeeCompletedBy=" + employeeCompletedBy +
+                '}';
+    }
+
     public Employees getEmployeeCompletedBy() {
         return employeeCompletedBy;
     }
 
     public void setEmployeeCompletedBy(Employees employeeCompletedBy) {
         this.employeeCompletedBy = employeeCompletedBy;
-    }
-
-    @Override
-    public String toString() {
-        return "Name: " + completedTaskName + '\n' +
-                "Notes: " + completedTaskNotes + '\n' +
-                "Date Completed: " + dateCompleted + '\n' +
-                "Employee Completed By: ";
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CompletedTask)) return false;
-        CompletedTask that = (CompletedTask) o;
-        return getCompletedTaskId() == that.getCompletedTaskId() && Objects.equals(getCompletedTaskName(), that.getCompletedTaskName()) && Objects.equals(getCompletedTaskNotes(), that.getCompletedTaskNotes()) && Objects.equals(getDateCompleted(), that.getDateCompleted()) && getCompletedTaskType() == that.getCompletedTaskType() && getEmployeeCompletedBy() == that.getEmployeeCompletedBy();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getCompletedTaskId(), getCompletedTaskName(), getCompletedTaskNotes(), getDateCompleted(), getCompletedTaskType(), getEmployeeCompletedBy());
     }
 }

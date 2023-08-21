@@ -3,12 +3,15 @@ package org.launchcode.bartender_LiftOff_Project.controllers;
 import org.launchcode.bartender_LiftOff_Project.data.CompletedTasksRepository;
 import org.launchcode.bartender_LiftOff_Project.models.CompletedTask;
 import org.launchcode.bartender_LiftOff_Project.models.Employees;
+import org.launchcode.bartender_LiftOff_Project.models.EmployeesList;
 import org.launchcode.bartender_LiftOff_Project.models.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.launchcode.bartender_LiftOff_Project.data.EmployeesRepository;
+
 
 import javax.validation.Valid;
 
@@ -17,6 +20,9 @@ import javax.validation.Valid;
 public class CompletedTasksController {
     @Autowired
     private CompletedTasksRepository completedTasksRepository;
+
+    @Autowired
+    private EmployeesRepository employeesRepository;
 
     @GetMapping("add")
     public String displayAddCompletedTasksPage(Model model) {

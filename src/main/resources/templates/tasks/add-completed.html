@@ -42,9 +42,9 @@
         <div>
             <label>Employee Completed By:
                 <select th:field="${completedTask.employeeCompletedBy}">
-                    <option th:each="type : ${employees}"
-                            th:value="${type}"
-                            th:text="${type.employeeDisplayName}"
+                    <option th:each="employee : ${employees}"
+                            th:value="${employee}"
+                            th:text="${employee.employeeDisplayName}"
                     ></option>
                 </select>
             </label>
@@ -55,5 +55,6 @@
         <p><a href="/tasks/completed/delete">Remove Completed Task</a></p>
         <p><a href="/tasks/completed/list">Completed Task List</a></p>
         <p><a href="/tasks">Task Manager</a></p>
+
 </body>
 </html>

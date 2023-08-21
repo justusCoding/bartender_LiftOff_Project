@@ -8,29 +8,29 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
-public class Employees2 {
+public class EmployeesList {
 
     @Id
     @GeneratedValue
     private int employeeId;
 
     @NotBlank(message = "First name is required.")
-    @Size(min = 0, max = 50, message = "First name must be 50 characters or less.")
+    @Size(min = 0, max = 25, message = "First name must be 50 characters or less.")
     private String employeeFirstName;
 
     @NotBlank(message = "Last name is required.")
-    @Size(min = 0, max = 50, message = "Last name must be 50 characters or less.")
+    @Size(min = 0, max = 25, message = "Last name must be 50 characters or less.")
     private String employeeLastName;
 
     private Position position;
 
     private String dateOfBirth;
 
-    public Employees2() {
+    public EmployeesList() {
 
     }
 
-    public Employees2(int employeeId, String employeeFirstName, String employeeLastName, Position position, String dateOfBirth) {
+    public EmployeesList(int employeeId, String employeeFirstName, String employeeLastName, Position position, String dateOfBirth) {
         this.employeeId = employeeId;
         this.employeeFirstName = employeeFirstName;
         this.employeeLastName = employeeLastName;
@@ -40,10 +40,6 @@ public class Employees2 {
 
     public int getEmployeeId() {
         return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
     }
 
     public String getEmployeeFirstName() {
@@ -80,7 +76,7 @@ public class Employees2 {
 
     @Override
     public String toString() {
-        return "Employees2{" +
+        return "EmployeesList{" +
                 "employeeId=" + employeeId +
                 ", employeeFirstName='" + employeeFirstName + '\'' +
                 ", employeeLastName='" + employeeLastName + '\'' +
@@ -92,8 +88,8 @@ public class Employees2 {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Employees2)) return false;
-        Employees2 that = (Employees2) o;
+        if (!(o instanceof EmployeesList)) return false;
+        EmployeesList that = (EmployeesList) o;
         return getEmployeeId() == that.getEmployeeId() && Objects.equals(getEmployeeFirstName(), that.getEmployeeFirstName()) && Objects.equals(getEmployeeLastName(), that.getEmployeeLastName()) && getPosition() == that.getPosition() && Objects.equals(getDateOfBirth(), that.getDateOfBirth());
     }
 

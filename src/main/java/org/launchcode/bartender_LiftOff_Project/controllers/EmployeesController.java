@@ -1,6 +1,6 @@
 package org.launchcode.bartender_LiftOff_Project.controllers;
 
-import org.launchcode.bartender_LiftOff_Project.models.Employees2;
+import org.launchcode.bartender_LiftOff_Project.models.EmployeesList;
 import org.launchcode.bartender_LiftOff_Project.models.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,18 +29,18 @@ public class EmployeesController {
     public String displayAddEmployeePage(Model model) {
         model.addAttribute("title", "Add Employee");
         model.addAttribute("positionType", Position.values());
-        model.addAttribute(new Employees2());
+        model.addAttribute(new EmployeesList());
         return "tasks/add-employee";
     }
 
     @PostMapping("add")
-    public  String processAddEmployeePage(@ModelAttribute @Valid Employees2 employees2, Errors errors, Model model) {
+    public  String processAddEmployeePage(@ModelAttribute @Valid EmployeesList employeesList, Errors errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("employees", employees2);
+            model.addAttribute("employees", employeesList);
             model.addAttribute("errors", errors);
             return "tasks/add-employee";
         } else {
-            employeesRepository.save(employees2);
+            employeesRepository.save(employeesList);
         }
         return "redirect:list";
     }
